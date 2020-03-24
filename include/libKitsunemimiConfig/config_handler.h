@@ -16,6 +16,7 @@ namespace Config
 
 enum ConfigType
 {
+    UNDEFINED_TYPE,
     STRING_TYPE,
     INT_TYPE,
     FLOAT_TYPE,
@@ -31,33 +32,40 @@ public:
 
     bool readConfig(const std::string &configFilePath);
 
-    bool registerConfig(const std::string &group,
+    // register config-options
+    bool registerString(const std::string &group,
                         const std::string &key,
-                        const ConfigType type);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
-                        const char* &defaultValue);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
                         const std::string &defaultValue);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
-                        const long defaultValue);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
-                        const double defaultValue);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
-                        const bool defaultValue);
-    bool registerConfig(const std::string &group,
-                        const std::string &key,
-                        const ConfigType type,
-                        const std::vector<std::string> &defaultValue);
+    bool registerInteger(const std::string &group,
+                         const std::string &key,
+                         const long defaultValue);
+    bool registerFloat(const std::string &group,
+                       const std::string &key,
+                       const double defaultValue);
+    bool registerBoolean(const std::string &group,
+                         const std::string &key,
+                         const bool defaultValue);
+    bool registerStringArray(const std::string &group,
+                             const std::string &key,
+                             const std::vector<std::string> &defaultValue);
+
+    // getter
+    const std::string getString(const std::string &group,
+                                const std::string &key,
+                                bool &success);
+    long getInteger(const std::string &group,
+                    const std::string &key,
+                    bool &success);
+    double getFloat(const std::string &group,
+                    const std::string &key,
+                    bool &success);
+    bool getBoolean(const std::string &group,
+                    const std::string &key,
+                    bool &success);
+    const std::vector<std::string> getStringArray(const std::string &group,
+                                                  const std::string &key,
+                                                  bool &success);
+
 
 private:
     bool checkType(const std::string &group,
@@ -68,6 +76,8 @@ private:
     bool registerType(const std::string &group,
                       const std::string &key,
                       const ConfigType type);
+    ConfigType getRegisteredType(const std::string &group,
+                                 const std::string &key);
 
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;

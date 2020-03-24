@@ -60,70 +60,18 @@ bool ConfigHandler::readConfig(const std::string &configFilePath)
  * @brief ConfigHandler::registerConfig
  * @param group
  * @param key
- * @param type
- * @return
- */
-bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type)
-{
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
-        return false;
-    }
-    return m_iniItem->set(group, key, std::string(""));
-}
-
-/**
- * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
- * @param type
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerConfig(const std::string &group,
+ConfigHandler::registerString(const std::string &group,
                               const std::string &key,
-                              const ConfigType type,
-                              const char *&defaultValue)
-{
-    if(type != ConfigType::STRING_TYPE) {
-        return false;
-    }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
-        return false;
-    }
-    return m_iniItem->set(group, key, defaultValue);
-}
-
-/**
- * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
- * @param type
- * @param defaultValue
- * @return
- */
-bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type,
                               const std::string &defaultValue)
 {
-    if(type != ConfigType::STRING_TYPE) {
+    if(checkType(group, key, ConfigType::STRING_TYPE) == false) {
         return false;
     }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
+    if(registerType(group, key, ConfigType::STRING_TYPE) == false) {
         return false;
     }
     return m_iniItem->set(group, key, defaultValue);
@@ -133,23 +81,18 @@ ConfigHandler::registerConfig(const std::string &group,
  * @brief ConfigHandler::registerConfig
  * @param group
  * @param key
- * @param type
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type,
-                              const long defaultValue)
+ConfigHandler::registerInteger(const std::string &group,
+                               const std::string &key,
+                               const long defaultValue)
 {
-    if(type != ConfigType::INT_TYPE) {
+    if(checkType(group, key, ConfigType::INT_TYPE) == false) {
         return false;
     }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
+    if(registerType(group, key, ConfigType::INT_TYPE) == false) {
         return false;
     }
     return m_iniItem->set(group, key, defaultValue);
@@ -159,23 +102,18 @@ ConfigHandler::registerConfig(const std::string &group,
  * @brief ConfigHandler::registerConfig
  * @param group
  * @param key
- * @param type
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type,
-                              const double defaultValue)
+ConfigHandler::registerFloat(const std::string &group,
+                             const std::string &key,
+                             const double defaultValue)
 {
-    if(type != ConfigType::FLOAT_TYPE) {
+    if(checkType(group, key, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
+    if(registerType(group, key, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
     return m_iniItem->set(group, key, defaultValue);
@@ -185,23 +123,18 @@ ConfigHandler::registerConfig(const std::string &group,
  * @brief ConfigHandler::registerConfig
  * @param group
  * @param key
- * @param type
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type,
-                              const bool defaultValue)
+ConfigHandler::registerBoolean(const std::string &group,
+                               const std::string &key,
+                               const bool defaultValue)
 {
-    if(type != ConfigType::BOOL_TYPE) {
+    if(checkType(group, key, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
+    if(registerType(group, key, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
     return m_iniItem->set(group, key, defaultValue);
@@ -211,26 +144,139 @@ ConfigHandler::registerConfig(const std::string &group,
  * @brief ConfigHandler::registerConfig
  * @param group
  * @param key
- * @param type
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerConfig(const std::string &group,
-                              const std::string &key,
-                              const ConfigType type,
-                              const std::vector<std::string> &defaultValue)
+ConfigHandler::registerStringArray(const std::string &group,
+                                   const std::string &key,
+                                   const std::vector<std::string> &defaultValue)
 {
-    if(type != ConfigType::STRING_ARRAY_TYPE) {
+    if(checkType(group, key, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
-    if(checkType(group, key, type) == false) {
-        return false;
-    }
-    if(registerType(group, key, type) == false) {
+    if(registerType(group, key, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
     return m_iniItem->set(group, key, defaultValue);
+}
+
+/**
+ * @brief ConfigHandler::getString
+ * @param group
+ * @param key
+ * @param success
+ * @return
+ */
+const std::string
+ConfigHandler::getString(const std::string &group,
+                         const std::string &key,
+                         bool &success)
+{
+    success = true;
+    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    {
+        success = false;
+        return "";
+    }
+
+    return m_iniItem->get(group, key)->toValue()->getString();
+}
+
+/**
+ * @brief ConfigHandler::getInteger
+ * @param group
+ * @param key
+ * @param success
+ * @return
+ */
+long
+ConfigHandler::getInteger(const std::string &group,
+                          const std::string &key,
+                          bool &success)
+{
+    success = true;
+    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    {
+        success = false;
+        return 0l;
+    }
+
+    return m_iniItem->get(group, key)->toValue()->getLong();
+}
+
+/**
+ * @brief ConfigHandler::getFloat
+ * @param group
+ * @param key
+ * @param success
+ * @return
+ */
+double
+ConfigHandler::getFloat(const std::string &group,
+                        const std::string &key,
+                        bool &success)
+{
+    success = true;
+    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    {
+        success = false;
+        return 0.0;
+    }
+
+    return m_iniItem->get(group, key)->toValue()->getDouble();
+}
+
+/**
+ * @brief ConfigHandler::getBoolean
+ * @param group
+ * @param key
+ * @param success
+ * @return
+ */
+bool
+ConfigHandler::getBoolean(const std::string &group,
+                          const std::string &key,
+                          bool &success)
+{
+    success = true;
+    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    {
+        success = false;
+        return false;
+    }
+
+    return m_iniItem->get(group, key)->toValue()->getBool();
+}
+
+/**
+ * @brief ConfigHandler::getStringArray
+ * @param group
+ * @param key
+ * @param success
+ * @return
+ */
+const std::vector<std::string>
+ConfigHandler::getStringArray(const std::string &group,
+                              const std::string &key,
+                              bool &success)
+{
+    std::vector<std::string> result;
+    success = true;
+
+    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    {
+        success = false;
+        return result;
+    }
+
+    DataArray* array = m_iniItem->get(group, key)->toArray();
+    for(uint32_t i = 0; i < array->size(); i++)
+    {
+        result.push_back(array->get(i)->toValue()->getString());
+    }
+
+    return result;
 }
 
 /**
@@ -298,21 +344,11 @@ bool
 ConfigHandler::isRegistered(const std::string &group,
                             const std::string &key)
 {
-    std::map<std::string, std::map<std::string, ConfigType>>::const_iterator outerIt;
-    outerIt = m_registeredConfigs.find(group);
-
-    if(outerIt != m_registeredConfigs.end())
-    {
-        std::map<std::string, ConfigType>::const_iterator innerIt;
-        innerIt = outerIt->second.find(key);
-
-        if(innerIt != outerIt->second.end())
-        {
-            return true;
-        }
+    if(getRegisteredType(group, key) == ConfigType::UNDEFINED_TYPE) {
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 /**
@@ -351,6 +387,33 @@ ConfigHandler::registerType(const std::string &group,
     }
 
     return true;
+}
+
+/**
+ * @brief ConfigHandler::getRegisteredType
+ * @param group
+ * @param key
+ * @return
+ */
+ConfigType
+ConfigHandler::getRegisteredType(const std::string &group,
+                                 const std::string &key)
+{
+    std::map<std::string, std::map<std::string, ConfigType>>::const_iterator outerIt;
+    outerIt = m_registeredConfigs.find(group);
+
+    if(outerIt != m_registeredConfigs.end())
+    {
+        std::map<std::string, ConfigType>::const_iterator innerIt;
+        innerIt = outerIt->second.find(key);
+
+        if(innerIt != outerIt->second.end())
+        {
+            return innerIt->second;
+        }
+    }
+
+    return UNDEFINED_TYPE;
 }
 
 }
