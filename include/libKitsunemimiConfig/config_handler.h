@@ -27,9 +27,9 @@ class ConfigHandler
 {
 public:
     ConfigHandler();
+    ~ConfigHandler();
 
-    bool readConfig(const std::string &configFilePath,
-                    std::string &errorMessage);
+    bool readConfig(const std::string &configFilePath);
 
     bool registerConfig(const std::string &group,
                         const std::string &key,
@@ -63,10 +63,15 @@ private:
     bool checkType(const std::string &group,
                    const std::string &key,
                    const ConfigType type);
+    bool isRegistered(const std::string &group,
+                      const std::string &key);
+    bool registerType(const std::string &group,
+                      const std::string &key,
+                      const ConfigType type);
 
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;
-    std::map<std::string, std::map<std::string, DataItem*>> m_configs;
+    std::map<std::string, std::map<std::string, ConfigType>> m_registeredConfigs;
 };
 
 }
