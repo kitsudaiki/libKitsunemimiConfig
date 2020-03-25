@@ -1,0 +1,14 @@
+image: registry.gitlab.com/kitsune_other/kitsune_docker_unittest:0.1.2
+
+build:
+  script:
+    - echo Working on branch $CI_COMMIT_REF_NAME
+
+    - cd /builds/tobiasanker/libKitsunemimiConfig
+    - ./build.sh
+
+    - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'/builds/tobiasanker/result'
+    - /builds/tobiasanker/build/libKitsunemimiConfig/tests/tests
+
+  tags:
+    - docker
