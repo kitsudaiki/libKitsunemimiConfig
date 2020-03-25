@@ -13,6 +13,7 @@ class IniItem;
 }
 namespace Config
 {
+class ConfigHandler_Test;
 
 enum ConfigType
 {
@@ -68,6 +69,8 @@ public:
 
 
 private:
+    friend ConfigHandler_Test;
+
     bool checkType(const std::string &group,
                    const std::string &key,
                    const ConfigType type);

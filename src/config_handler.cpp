@@ -68,13 +68,21 @@ ConfigHandler::registerString(const std::string &group,
                               const std::string &key,
                               const std::string &defaultValue)
 {
-    if(checkType(group, key, ConfigType::STRING_TYPE) == false) {
+    std::string groupName = group;
+    if(groupName == "") {
+        groupName = "DEFAULT";
+    }
+
+    if(checkType(groupName, key, ConfigType::STRING_TYPE) == false) {
         return false;
     }
-    if(registerType(group, key, ConfigType::STRING_TYPE) == false) {
+    if(registerType(groupName, key, ConfigType::STRING_TYPE) == false) {
         return false;
     }
-    return m_iniItem->set(group, key, defaultValue);
+
+    m_iniItem->set(groupName, key, defaultValue);
+
+    return true;
 }
 
 /**
@@ -89,13 +97,21 @@ ConfigHandler::registerInteger(const std::string &group,
                                const std::string &key,
                                const long defaultValue)
 {
-    if(checkType(group, key, ConfigType::INT_TYPE) == false) {
+    std::string groupName = group;
+    if(groupName == "") {
+        groupName = "DEFAULT";
+    }
+
+    if(checkType(groupName, key, ConfigType::INT_TYPE) == false) {
         return false;
     }
-    if(registerType(group, key, ConfigType::INT_TYPE) == false) {
+    if(registerType(groupName, key, ConfigType::INT_TYPE) == false) {
         return false;
     }
-    return m_iniItem->set(group, key, defaultValue);
+
+    m_iniItem->set(groupName, key, defaultValue);
+
+    return true;
 }
 
 /**
@@ -110,13 +126,21 @@ ConfigHandler::registerFloat(const std::string &group,
                              const std::string &key,
                              const double defaultValue)
 {
-    if(checkType(group, key, ConfigType::FLOAT_TYPE) == false) {
+    std::string groupName = group;
+    if(groupName == "") {
+        groupName = "DEFAULT";
+    }
+
+    if(checkType(groupName, key, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
-    if(registerType(group, key, ConfigType::FLOAT_TYPE) == false) {
+    if(registerType(groupName, key, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
-    return m_iniItem->set(group, key, defaultValue);
+
+    m_iniItem->set(groupName, key, defaultValue);
+
+    return true;
 }
 
 /**
@@ -131,13 +155,21 @@ ConfigHandler::registerBoolean(const std::string &group,
                                const std::string &key,
                                const bool defaultValue)
 {
-    if(checkType(group, key, ConfigType::BOOL_TYPE) == false) {
+    std::string groupName = group;
+    if(groupName == "") {
+        groupName = "DEFAULT";
+    }
+
+    if(checkType(groupName, key, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
-    if(registerType(group, key, ConfigType::BOOL_TYPE) == false) {
+    if(registerType(groupName, key, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
-    return m_iniItem->set(group, key, defaultValue);
+
+    m_iniItem->set(groupName, key, defaultValue);
+
+    return true;
 }
 
 /**
@@ -152,13 +184,21 @@ ConfigHandler::registerStringArray(const std::string &group,
                                    const std::string &key,
                                    const std::vector<std::string> &defaultValue)
 {
-    if(checkType(group, key, ConfigType::STRING_ARRAY_TYPE) == false) {
+    std::string groupName = group;
+    if(groupName == "") {
+        groupName = "DEFAULT";
+    }
+
+    if(checkType(groupName, key, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
-    if(registerType(group, key, ConfigType::STRING_ARRAY_TYPE) == false) {
+    if(registerType(groupName, key, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
-    return m_iniItem->set(group, key, defaultValue);
+
+    m_iniItem->set(groupName, key, defaultValue);
+
+    return true;
 }
 
 /**
@@ -196,7 +236,7 @@ ConfigHandler::getInteger(const std::string &group,
                           bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    if(getRegisteredType(group, key) != ConfigType::INT_TYPE)
     {
         success = false;
         return 0l;
@@ -218,7 +258,7 @@ ConfigHandler::getFloat(const std::string &group,
                         bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    if(getRegisteredType(group, key) != ConfigType::FLOAT_TYPE)
     {
         success = false;
         return 0.0;
@@ -240,7 +280,7 @@ ConfigHandler::getBoolean(const std::string &group,
                           bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    if(getRegisteredType(group, key) != ConfigType::BOOL_TYPE)
     {
         success = false;
         return false;
@@ -264,7 +304,7 @@ ConfigHandler::getStringArray(const std::string &group,
     std::vector<std::string> result;
     success = true;
 
-    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    if(getRegisteredType(group, key) != ConfigType::STRING_ARRAY_TYPE)
     {
         success = false;
         return result;

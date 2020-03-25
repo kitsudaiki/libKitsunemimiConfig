@@ -1,0 +1,399 @@
+#include "config_handler_test.h"
+
+#include <libKitsunemimiConfig/config_handler.h>
+#include <libKitsunemimiPersistence/files/text_file.h>
+#include <libKitsunemimiPersistence/files/file_methods.h>
+
+namespace Kitsunemimi
+{
+namespace Config
+{
+
+ConfigHandler_Test::ConfigHandler_Test()
+    : Kitsunemimi::CompareTestHelper("ConfigHandler_Test")
+{
+    initTestCase();
+
+    readConfig_test();
+
+    // private methods
+    registerType_test();
+    isRegistered_test();
+    getRegisteredType_test();
+    checkType_test();
+
+    // public methods
+    registerString_test();
+    registerInteger_test();
+    registerFloat_test();
+    registerBoolean_test();
+    registerStringArray_test();
+    getString_test();
+    getInteger_test();
+    getFloat_test();
+    getBoolean_test();
+    getStringArray_test();
+
+    cleanupTestCase();
+}
+
+/**
+ * initTestCase
+ */
+void
+ConfigHandler_Test::initTestCase()
+{
+    std::string errorMessage;
+    Persistence::writeFile(m_testFilePath,
+                           getTestString(),
+                           errorMessage,
+                           true);
+}
+
+/**
+ * @brief readConfig_test
+ */
+void
+ConfigHandler_Test::readConfig_test()
+{
+    ConfigHandler configHandler;
+
+    TEST_EQUAL(configHandler.readConfig("/tmp/asönganergupuneruigndf.ini"), false);
+    TEST_EQUAL(configHandler.readConfig(m_testFilePath), true);
+}
+
+/**
+ * @brief registerType_test
+ */
+void
+ConfigHandler_Test::registerType_test()
+{
+    ConfigHandler configHandler;
+
+    TEST_EQUAL(configHandler.registerType("group", "key1", ConfigType::STRING_TYPE), true);
+    TEST_EQUAL(configHandler.registerType("group", "key2", ConfigType::STRING_TYPE), true);
+    TEST_EQUAL(configHandler.registerType("group", "key1", ConfigType::STRING_TYPE), false);
+}
+
+/**
+ * @brief isRegistered_test
+ */
+void
+ConfigHandler_Test::isRegistered_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.registerType("group", "key1", ConfigType::STRING_TYPE);
+
+    TEST_EQUAL(configHandler.isRegistered("group", "key1"), true);
+    TEST_EQUAL(configHandler.isRegistered("group", "key2"), false);
+}
+
+/**
+ * @brief getRegisteredType_test
+ */
+void
+ConfigHandler_Test::getRegisteredType_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.registerType("group", "key1", ConfigType::STRING_TYPE);
+    configHandler.registerType("group", "key2", ConfigType::INT_TYPE);
+
+    TEST_EQUAL(configHandler.getRegisteredType("group", "key1"), ConfigType::STRING_TYPE);
+    TEST_EQUAL(configHandler.getRegisteredType("group", "key2"), ConfigType::INT_TYPE);
+}
+
+/**
+ * @brief checkType_test
+ */
+void
+ConfigHandler_Test::checkType_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.readConfig(m_testFilePath);
+
+    TEST_EQUAL(configHandler.checkType("DEFAULT", "string_val", ConfigType::INT_TYPE), false);
+    TEST_EQUAL(configHandler.checkType("DEFAULT", "string_val", ConfigType::STRING_TYPE), true);
+    TEST_EQUAL(configHandler.checkType("asdf", "string_val", ConfigType::STRING_TYPE), true);
+}
+
+/**
+ * @brief registerString_test
+ */
+void
+ConfigHandler_Test::registerString_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.readConfig(m_testFilePath);
+
+    TEST_EQUAL(configHandler.registerString("DEFAULT", "int_val", "default"), false);
+    TEST_EQUAL(configHandler.registerString("DEFAULT", "key", "default"), true);
+    TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), true);
+    TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), false);
+}
+
+/**
+ * @brief registerInteger_test
+ */
+void
+ConfigHandler_Test::registerInteger_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.readConfig(m_testFilePath);
+
+    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "string_val", 42), false);
+    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "key", 42), true);
+    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), true);
+    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), false);
+}
+
+/**
+ * @brief registerFloat_test
+ */
+void
+ConfigHandler_Test::registerFloat_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.readConfig(m_testFilePath);
+
+    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "string_val", 42.0), false);
+    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "key", 42.0), true);
+    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), true);
+    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), false);
+}
+
+/**
+ * @brief registerBoolean_test
+ */
+void
+ConfigHandler_Test::registerBoolean_test()
+{
+    ConfigHandler configHandler;
+
+    configHandler.readConfig(m_testFilePath);
+
+    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "string_val", true), false);
+    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "key", true), true);
+    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), true);
+    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), false);
+}
+
+/**
+ * @brief registerStringArray_test
+ */
+void
+ConfigHandler_Test::registerStringArray_test()
+{
+    ConfigHandler configHandler;
+    std::vector<std::string> defaultValue;
+
+    configHandler.readConfig(m_testFilePath);
+    defaultValue.push_back("test");
+
+    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_val", defaultValue), false);
+    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "key", defaultValue), true);
+    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), true);
+    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), false);
+}
+
+/**
+ * @brief getString_test
+ */
+void
+ConfigHandler_Test::getString_test()
+{
+    ConfigHandler configHandler;
+    bool success = false;
+
+    configHandler.readConfig(m_testFilePath);
+
+    // test if unregistered
+    TEST_EQUAL(configHandler.getString("DEFAULT", "string_val", success), "");
+    TEST_EQUAL(success, false);
+
+    configHandler.registerString("DEFAULT", "string_val", "xyz");
+
+    // successful test
+    TEST_EQUAL(configHandler.getString("DEFAULT", "string_val", success), "asdf.asdf");
+    TEST_EQUAL(success, true);
+
+    // test false type
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "string_val", success), 0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerString("DEFAULT", "string_val2", "xyz");
+
+    // test default
+    TEST_EQUAL(configHandler.getString("DEFAULT", "string_val2", success), "xyz");
+    TEST_EQUAL(success, true);
+}
+
+/**
+ * @brief getInteger_test
+ */
+void
+ConfigHandler_Test::getInteger_test()
+{
+    ConfigHandler configHandler;
+    bool success = false;
+
+    configHandler.readConfig(m_testFilePath);
+
+    // test if unregistered
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "int_val", success), 0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerInteger("DEFAULT", "int_val", 42);
+
+    // successful test
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "int_val", success), 2);
+    TEST_EQUAL(success, true);
+
+    // test false type
+    TEST_EQUAL(configHandler.getString("DEFAULT", "int_val", success), "");
+    TEST_EQUAL(success, false);
+
+    configHandler.registerInteger("DEFAULT", "int_val2", 42);
+
+    // test default
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "int_val2", success), 42);
+    TEST_EQUAL(success, true);
+}
+
+/**
+ * @brief getFloat_test
+ */
+void
+ConfigHandler_Test::getFloat_test()
+{
+    ConfigHandler configHandler;
+    bool success = false;
+
+    configHandler.readConfig(m_testFilePath);
+
+    // test if unregistered
+    TEST_EQUAL(configHandler.getFloat("DEFAULT", "float_val", success), 0.0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerFloat("DEFAULT", "float_val", 42.0);
+
+    // successful test
+    TEST_EQUAL(configHandler.getFloat("DEFAULT", "float_val", success), 123.0);
+    TEST_EQUAL(success, true);
+
+    // test false type
+    TEST_EQUAL(configHandler.getString("DEFAULT", "string_val", success), "");
+    TEST_EQUAL(success, false);
+
+    configHandler.registerFloat("DEFAULT", "float_val2", 42.0);
+
+    // test default
+    TEST_EQUAL(configHandler.getFloat("DEFAULT", "float_val2", success), 42.0);
+    TEST_EQUAL(success, true);
+}
+
+/**
+ * @brief getBoolean_test
+ */
+void
+ConfigHandler_Test::getBoolean_test()
+{
+    ConfigHandler configHandler;
+    bool success = false;
+
+    configHandler.readConfig(m_testFilePath);
+
+    // test if unregistered
+    TEST_EQUAL(configHandler.getBoolean("DEFAULT", "bool_value", success), false);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerBoolean("DEFAULT", "bool_value", false);
+
+    // successful test
+    TEST_EQUAL(configHandler.getBoolean("DEFAULT", "bool_value", success), true);
+    TEST_EQUAL(success, true);
+
+    // test false type
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "string_val", success), 0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerBoolean("DEFAULT", "bool_value2", true);
+
+    // test default
+    TEST_EQUAL(configHandler.getBoolean("DEFAULT", "bool_value2", success), true);
+    TEST_EQUAL(success, true);
+}
+
+/**
+ * @brief getStringArray_test
+ */
+void
+ConfigHandler_Test::getStringArray_test()
+{
+    ConfigHandler configHandler;
+    bool success = false;
+    std::vector<std::string> defaultValue;
+    std::vector<std::string> ret;
+
+    configHandler.readConfig(m_testFilePath);
+    defaultValue.push_back("test");
+
+    // test if unregistered
+    ret = configHandler.getStringArray("DEFAULT", "string_list", success);
+    TEST_EQUAL(ret.size(), 0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerStringArray("DEFAULT", "string_list", defaultValue);
+
+    // successful test
+    ret = configHandler.getStringArray("DEFAULT", "string_list", success);
+    TEST_EQUAL(ret.size(), 3);
+    TEST_EQUAL(success, true);
+
+    // test false type
+    TEST_EQUAL(configHandler.getInteger("DEFAULT", "string_val", success), 0);
+    TEST_EQUAL(success, false);
+
+    configHandler.registerStringArray("DEFAULT", "string_list2", defaultValue);
+
+    // test default
+    ret = configHandler.getStringArray("DEFAULT", "string_list2", success);
+    TEST_EQUAL(ret.size(), 1);
+    TEST_EQUAL(success, true);
+}
+
+/**
+ * cleanupTestCase
+ */
+void
+ConfigHandler_Test::cleanupTestCase()
+{
+    std::string errorMessage = "";
+    Persistence::deleteFileOrDir(m_testFilePath, errorMessage);
+}
+
+/**
+ * @brief ConfigHandler_Test::getTestString
+ * @return
+ */
+const std::string
+ConfigHandler_Test::getTestString()
+{
+    const std::string testString(
+                "[DEFAULT]\n"
+                "string_val = asdf.asdf\n"
+                "int_val = 2\n"
+                "float_val = 123.0\n"
+                "string_list = a,b,c\n"
+                "bool_value = true\n"
+                "\n");
+    return testString;
+}
+
+}
+}
