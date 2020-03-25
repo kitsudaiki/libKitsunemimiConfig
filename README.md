@@ -105,4 +105,4 @@ Please give me as many inputs as possible: Bugs, bad code style, bad documentati
 
 ## License
 
-This project is licensed under the Apache License Version 2.0 - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
