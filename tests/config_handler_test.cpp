@@ -70,9 +70,9 @@ ConfigHandler_Test::registerType_test()
 {
     ConfigHandler configHandler;
 
-    TEST_EQUAL(configHandler.registerType("group", "key1", ConfigType::STRING_TYPE), true);
-    TEST_EQUAL(configHandler.registerType("group", "key2", ConfigType::STRING_TYPE), true);
-    TEST_EQUAL(configHandler.registerType("group", "key1", ConfigType::STRING_TYPE), false);
+    TEST_EQUAL(configHandler.registerType("groupName", "key1", ConfigType::STRING_TYPE), true);
+    TEST_EQUAL(configHandler.registerType("groupName", "key2", ConfigType::STRING_TYPE), true);
+    TEST_EQUAL(configHandler.registerType("groupName", "key1", ConfigType::STRING_TYPE), false);
 }
 
 /**
@@ -83,10 +83,10 @@ ConfigHandler_Test::isRegistered_test()
 {
     ConfigHandler configHandler;
 
-    configHandler.registerType("group", "key1", ConfigType::STRING_TYPE);
+    configHandler.registerType("groupName", "key1", ConfigType::STRING_TYPE);
 
-    TEST_EQUAL(configHandler.isRegistered("group", "key1"), true);
-    TEST_EQUAL(configHandler.isRegistered("group", "key2"), false);
+    TEST_EQUAL(configHandler.isRegistered("groupName", "key1"), true);
+    TEST_EQUAL(configHandler.isRegistered("groupName", "key2"), false);
 }
 
 /**
@@ -97,11 +97,11 @@ ConfigHandler_Test::getRegisteredType_test()
 {
     ConfigHandler configHandler;
 
-    configHandler.registerType("group", "key1", ConfigType::STRING_TYPE);
-    configHandler.registerType("group", "key2", ConfigType::INT_TYPE);
+    configHandler.registerType("groupName", "key1", ConfigType::STRING_TYPE);
+    configHandler.registerType("groupName", "key2", ConfigType::INT_TYPE);
 
-    TEST_EQUAL(configHandler.getRegisteredType("group", "key1"), ConfigType::STRING_TYPE);
-    TEST_EQUAL(configHandler.getRegisteredType("group", "key2"), ConfigType::INT_TYPE);
+    TEST_EQUAL(configHandler.getRegisteredType("groupName", "key1"), ConfigType::STRING_TYPE);
+    TEST_EQUAL(configHandler.getRegisteredType("groupName", "key2"), ConfigType::INT_TYPE);
 }
 
 /**
@@ -130,7 +130,7 @@ ConfigHandler_Test::registerString_test()
     configHandler.readConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerString("DEFAULT", "int_val", "default"), false);
-    TEST_EQUAL(configHandler.registerString("DEFAULT", "key", "default"), true);
+    TEST_EQUAL(configHandler.registerString("DEFAULT", "itemName", "default"), true);
     TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), true);
     TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), false);
 }
@@ -146,7 +146,7 @@ ConfigHandler_Test::registerInteger_test()
     configHandler.readConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerInteger("DEFAULT", "string_val", 42), false);
-    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "key", 42), true);
+    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "itemName", 42), true);
     TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), true);
     TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), false);
 }
@@ -162,7 +162,7 @@ ConfigHandler_Test::registerFloat_test()
     configHandler.readConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerFloat("DEFAULT", "string_val", 42.0), false);
-    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "key", 42.0), true);
+    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "itemName", 42.0), true);
     TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), true);
     TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), false);
 }
@@ -178,7 +178,7 @@ ConfigHandler_Test::registerBoolean_test()
     configHandler.readConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "string_val", true), false);
-    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "key", true), true);
+    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "itemName", true), true);
     TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), true);
     TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), false);
 }
@@ -196,7 +196,7 @@ ConfigHandler_Test::registerStringArray_test()
     defaultValue.push_back("test");
 
     TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_val", defaultValue), false);
-    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "key", defaultValue), true);
+    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "itemName", defaultValue), true);
     TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), true);
     TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), false);
 }

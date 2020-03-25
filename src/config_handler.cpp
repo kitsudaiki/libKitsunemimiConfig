@@ -58,259 +58,259 @@ bool ConfigHandler::readConfig(const std::string &configFilePath)
 
 /**
  * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerString(const std::string &group,
-                              const std::string &key,
+ConfigHandler::registerString(const std::string &groupName,
+                              const std::string &itemName,
                               const std::string &defaultValue)
 {
-    std::string groupName = group;
-    if(groupName == "") {
-        groupName = "DEFAULT";
+    std::string tempGroupName = groupName;
+    if(tempGroupName == "") {
+        tempGroupName = "DEFAULT";
     }
 
-    if(checkType(groupName, key, ConfigType::STRING_TYPE) == false) {
+    if(checkType(tempGroupName, itemName, ConfigType::STRING_TYPE) == false) {
         return false;
     }
-    if(registerType(groupName, key, ConfigType::STRING_TYPE) == false) {
+    if(registerType(tempGroupName, itemName, ConfigType::STRING_TYPE) == false) {
         return false;
     }
 
-    m_iniItem->set(groupName, key, defaultValue);
+    m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
  * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerInteger(const std::string &group,
-                               const std::string &key,
+ConfigHandler::registerInteger(const std::string &groupName,
+                               const std::string &itemName,
                                const long defaultValue)
 {
-    std::string groupName = group;
-    if(groupName == "") {
-        groupName = "DEFAULT";
+    std::string tempGroupName = groupName;
+    if(tempGroupName == "") {
+        tempGroupName = "DEFAULT";
     }
 
-    if(checkType(groupName, key, ConfigType::INT_TYPE) == false) {
+    if(checkType(tempGroupName, itemName, ConfigType::INT_TYPE) == false) {
         return false;
     }
-    if(registerType(groupName, key, ConfigType::INT_TYPE) == false) {
+    if(registerType(tempGroupName, itemName, ConfigType::INT_TYPE) == false) {
         return false;
     }
 
-    m_iniItem->set(groupName, key, defaultValue);
+    m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
  * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerFloat(const std::string &group,
-                             const std::string &key,
+ConfigHandler::registerFloat(const std::string &groupName,
+                             const std::string &itemName,
                              const double defaultValue)
 {
-    std::string groupName = group;
-    if(groupName == "") {
-        groupName = "DEFAULT";
+    std::string tempGroupName = groupName;
+    if(tempGroupName == "") {
+        tempGroupName = "DEFAULT";
     }
 
-    if(checkType(groupName, key, ConfigType::FLOAT_TYPE) == false) {
+    if(checkType(tempGroupName, itemName, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
-    if(registerType(groupName, key, ConfigType::FLOAT_TYPE) == false) {
+    if(registerType(tempGroupName, itemName, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
 
-    m_iniItem->set(groupName, key, defaultValue);
+    m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
  * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerBoolean(const std::string &group,
-                               const std::string &key,
+ConfigHandler::registerBoolean(const std::string &groupName,
+                               const std::string &itemName,
                                const bool defaultValue)
 {
-    std::string groupName = group;
-    if(groupName == "") {
-        groupName = "DEFAULT";
+    std::string tempGroupName = groupName;
+    if(tempGroupName == "") {
+        tempGroupName = "DEFAULT";
     }
 
-    if(checkType(groupName, key, ConfigType::BOOL_TYPE) == false) {
+    if(checkType(tempGroupName, itemName, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
-    if(registerType(groupName, key, ConfigType::BOOL_TYPE) == false) {
+    if(registerType(tempGroupName, itemName, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
 
-    m_iniItem->set(groupName, key, defaultValue);
+    m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
  * @brief ConfigHandler::registerConfig
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param defaultValue
  * @return
  */
 bool
-ConfigHandler::registerStringArray(const std::string &group,
-                                   const std::string &key,
+ConfigHandler::registerStringArray(const std::string &groupName,
+                                   const std::string &itemName,
                                    const std::vector<std::string> &defaultValue)
 {
-    std::string groupName = group;
-    if(groupName == "") {
-        groupName = "DEFAULT";
+    std::string tempGroupName = groupName;
+    if(tempGroupName == "") {
+        tempGroupName = "DEFAULT";
     }
 
-    if(checkType(groupName, key, ConfigType::STRING_ARRAY_TYPE) == false) {
+    if(checkType(tempGroupName, itemName, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
-    if(registerType(groupName, key, ConfigType::STRING_ARRAY_TYPE) == false) {
+    if(registerType(tempGroupName, itemName, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
 
-    m_iniItem->set(groupName, key, defaultValue);
+    m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
  * @brief ConfigHandler::getString
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param success
  * @return
  */
 const std::string
-ConfigHandler::getString(const std::string &group,
-                         const std::string &key,
+ConfigHandler::getString(const std::string &groupName,
+                         const std::string &itemName,
                          bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::STRING_TYPE)
+    if(getRegisteredType(groupName, itemName) != ConfigType::STRING_TYPE)
     {
         success = false;
         return "";
     }
 
-    return m_iniItem->get(group, key)->toValue()->getString();
+    return m_iniItem->get(groupName, itemName)->toValue()->getString();
 }
 
 /**
  * @brief ConfigHandler::getInteger
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param success
  * @return
  */
 long
-ConfigHandler::getInteger(const std::string &group,
-                          const std::string &key,
+ConfigHandler::getInteger(const std::string &groupName,
+                          const std::string &itemName,
                           bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::INT_TYPE)
+    if(getRegisteredType(groupName, itemName) != ConfigType::INT_TYPE)
     {
         success = false;
         return 0l;
     }
 
-    return m_iniItem->get(group, key)->toValue()->getLong();
+    return m_iniItem->get(groupName, itemName)->toValue()->getLong();
 }
 
 /**
  * @brief ConfigHandler::getFloat
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param success
  * @return
  */
 double
-ConfigHandler::getFloat(const std::string &group,
-                        const std::string &key,
+ConfigHandler::getFloat(const std::string &groupName,
+                        const std::string &itemName,
                         bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::FLOAT_TYPE)
+    if(getRegisteredType(groupName, itemName) != ConfigType::FLOAT_TYPE)
     {
         success = false;
         return 0.0;
     }
 
-    return m_iniItem->get(group, key)->toValue()->getDouble();
+    return m_iniItem->get(groupName, itemName)->toValue()->getDouble();
 }
 
 /**
  * @brief ConfigHandler::getBoolean
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param success
  * @return
  */
 bool
-ConfigHandler::getBoolean(const std::string &group,
-                          const std::string &key,
+ConfigHandler::getBoolean(const std::string &groupName,
+                          const std::string &itemName,
                           bool &success)
 {
     success = true;
-    if(getRegisteredType(group, key) != ConfigType::BOOL_TYPE)
+    if(getRegisteredType(groupName, itemName) != ConfigType::BOOL_TYPE)
     {
         success = false;
         return false;
     }
 
-    return m_iniItem->get(group, key)->toValue()->getBool();
+    return m_iniItem->get(groupName, itemName)->toValue()->getBool();
 }
 
 /**
  * @brief ConfigHandler::getStringArray
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param success
  * @return
  */
 const std::vector<std::string>
-ConfigHandler::getStringArray(const std::string &group,
-                              const std::string &key,
+ConfigHandler::getStringArray(const std::string &groupName,
+                              const std::string &itemName,
                               bool &success)
 {
     std::vector<std::string> result;
     success = true;
 
-    if(getRegisteredType(group, key) != ConfigType::STRING_ARRAY_TYPE)
+    if(getRegisteredType(groupName, itemName) != ConfigType::STRING_ARRAY_TYPE)
     {
         success = false;
         return result;
     }
 
-    DataArray* array = m_iniItem->get(group, key)->toArray();
+    DataArray* array = m_iniItem->get(groupName, itemName)->toArray();
     for(uint32_t i = 0; i < array->size(); i++)
     {
         result.push_back(array->get(i)->toValue()->getString());
@@ -321,17 +321,17 @@ ConfigHandler::getStringArray(const std::string &group,
 
 /**
  * @brief ConfigHandler::checkType
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param type
  * @return
  */
 bool
-ConfigHandler::checkType(const std::string &group,
-                         const std::string &key,
+ConfigHandler::checkType(const std::string &groupName,
+                         const std::string &itemName,
                          const ConfigType type)
 {
-    DataItem* currentItem = m_iniItem->get(group, key);
+    DataItem* currentItem = m_iniItem->get(groupName, itemName);
     if(currentItem == nullptr) {
         return true;
     }
@@ -376,15 +376,15 @@ ConfigHandler::checkType(const std::string &group,
 
 /**
  * @brief ConfigHandler::isRegistered
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @return
  */
 bool
-ConfigHandler::isRegistered(const std::string &group,
-                            const std::string &key)
+ConfigHandler::isRegistered(const std::string &groupName,
+                            const std::string &itemName)
 {
-    if(getRegisteredType(group, key) == ConfigType::UNDEFINED_TYPE) {
+    if(getRegisteredType(groupName, itemName) == ConfigType::UNDEFINED_TYPE) {
         return false;
     }
 
@@ -393,37 +393,37 @@ ConfigHandler::isRegistered(const std::string &group,
 
 /**
  * @brief ConfigHandler::registerType
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @param type
  * @return
  */
 bool
-ConfigHandler::registerType(const std::string &group,
-                            const std::string &key,
+ConfigHandler::registerType(const std::string &groupName,
+                            const std::string &itemName,
                             const ConfigType type)
 {
     // precheck if already exist
-    if(isRegistered(group, key) == true) {
+    if(isRegistered(groupName, itemName) == true) {
         return false;
     }
 
     std::map<std::string, std::map<std::string, ConfigType>>::iterator outerIt;
 
-    // add group, if not exist
-    outerIt = m_registeredConfigs.find(group);
+    // add groupName, if not exist
+    outerIt = m_registeredConfigs.find(groupName);
     if(outerIt == m_registeredConfigs.end())
     {
         std::map<std::string, ConfigType> newEntry;
         m_registeredConfigs.insert(
-                    std::pair<std::string, std::map<std::string, ConfigType>>(group, newEntry));
+                    std::pair<std::string, std::map<std::string, ConfigType>>(groupName, newEntry));
     }
 
     // add new value
-    outerIt = m_registeredConfigs.find(group);
+    outerIt = m_registeredConfigs.find(groupName);
     if(outerIt != m_registeredConfigs.end())
     {
-        outerIt->second.insert(std::pair<std::string, ConfigType>(key, type));
+        outerIt->second.insert(std::pair<std::string, ConfigType>(itemName, type));
     }
 
     return true;
@@ -431,21 +431,21 @@ ConfigHandler::registerType(const std::string &group,
 
 /**
  * @brief ConfigHandler::getRegisteredType
- * @param group
- * @param key
+ * @param groupName
+ * @param itemName
  * @return
  */
 ConfigType
-ConfigHandler::getRegisteredType(const std::string &group,
-                                 const std::string &key)
+ConfigHandler::getRegisteredType(const std::string &groupName,
+                                 const std::string &itemName)
 {
     std::map<std::string, std::map<std::string, ConfigType>>::const_iterator outerIt;
-    outerIt = m_registeredConfigs.find(group);
+    outerIt = m_registeredConfigs.find(groupName);
 
     if(outerIt != m_registeredConfigs.end())
     {
         std::map<std::string, ConfigType>::const_iterator innerIt;
-        innerIt = outerIt->second.find(key);
+        innerIt = outerIt->second.find(itemName);
 
         if(innerIt != outerIt->second.end())
         {

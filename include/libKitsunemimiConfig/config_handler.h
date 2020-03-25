@@ -34,53 +34,53 @@ public:
     bool readConfig(const std::string &configFilePath);
 
     // register config-options
-    bool registerString(const std::string &group,
-                        const std::string &key,
+    bool registerString(const std::string &groupName,
+                        const std::string &itemName,
                         const std::string &defaultValue);
-    bool registerInteger(const std::string &group,
-                         const std::string &key,
+    bool registerInteger(const std::string &groupName,
+                         const std::string &itemName,
                          const long defaultValue);
-    bool registerFloat(const std::string &group,
-                       const std::string &key,
+    bool registerFloat(const std::string &groupName,
+                       const std::string &itemName,
                        const double defaultValue);
-    bool registerBoolean(const std::string &group,
-                         const std::string &key,
+    bool registerBoolean(const std::string &groupName,
+                         const std::string &itemName,
                          const bool defaultValue);
-    bool registerStringArray(const std::string &group,
-                             const std::string &key,
+    bool registerStringArray(const std::string &groupName,
+                             const std::string &itemName,
                              const std::vector<std::string> &defaultValue);
 
     // getter
-    const std::string getString(const std::string &group,
-                                const std::string &key,
+    const std::string getString(const std::string &groupName,
+                                const std::string &itemName,
                                 bool &success);
-    long getInteger(const std::string &group,
-                    const std::string &key,
+    long getInteger(const std::string &groupName,
+                    const std::string &itemName,
                     bool &success);
-    double getFloat(const std::string &group,
-                    const std::string &key,
+    double getFloat(const std::string &groupName,
+                    const std::string &itemName,
                     bool &success);
-    bool getBoolean(const std::string &group,
-                    const std::string &key,
+    bool getBoolean(const std::string &groupName,
+                    const std::string &itemName,
                     bool &success);
-    const std::vector<std::string> getStringArray(const std::string &group,
-                                                  const std::string &key,
+    const std::vector<std::string> getStringArray(const std::string &groupName,
+                                                  const std::string &itemName,
                                                   bool &success);
 
 
 private:
     friend ConfigHandler_Test;
 
-    bool checkType(const std::string &group,
-                   const std::string &key,
+    bool checkType(const std::string &groupName,
+                   const std::string &itemName,
                    const ConfigType type);
-    bool isRegistered(const std::string &group,
-                      const std::string &key);
-    bool registerType(const std::string &group,
-                      const std::string &key,
+    bool isRegistered(const std::string &groupName,
+                      const std::string &itemName);
+    bool registerType(const std::string &groupName,
+                      const std::string &itemName,
                       const ConfigType type);
-    ConfigType getRegisteredType(const std::string &group,
-                                 const std::string &key);
+    ConfigType getRegisteredType(const std::string &groupName,
+                                 const std::string &itemName);
 
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;
