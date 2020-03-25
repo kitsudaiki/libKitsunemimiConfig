@@ -20,8 +20,17 @@ namespace Config
 
 Kitsunemimi::Config::ConfigHandler* ConfigHandler::m_config = nullptr;
 
-bool initConfig(const std::string &configFilePath,
-                std::string &errorMessage)
+/**
+ * @brief read a ini config-file
+ *
+ * @param configFilePath absolute path to the config-file to read
+ * @param errorMessage reference for error-message-output
+ *
+ * @return false, if reading or parsing the file failed, else true
+ */
+bool
+initConfig(const std::string &configFilePath,
+           std::string &errorMessage)
 {
     if(ConfigHandler::m_config != nullptr)
     {
@@ -33,11 +42,19 @@ bool initConfig(const std::string &configFilePath,
     return ConfigHandler::m_config->initConfig(configFilePath, errorMessage);
 }
 
-
-// register config-options
-bool registerString(const std::string &groupName,
-                    const std::string &itemName,
-                    const std::string &defaultValue)
+/**
+ * @brief register string config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
+ */
+bool
+registerString(const std::string &groupName,
+               const std::string &itemName,
+               const std::string &defaultValue)
 {
     if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
         return false;
@@ -48,9 +65,19 @@ bool registerString(const std::string &groupName,
                                                                         defaultValue);
 }
 
-bool registerInteger(const std::string &groupName,
-                     const std::string &itemName,
-                     const long defaultValue)
+/**
+ * @brief register int/long config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
+ */
+bool
+registerInteger(const std::string &groupName,
+                const std::string &itemName,
+                const long defaultValue)
 {
     if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
         return false;
@@ -61,9 +88,19 @@ bool registerInteger(const std::string &groupName,
                                                                          defaultValue);
 }
 
-bool registerFloat(const std::string &groupName,
-                   const std::string &itemName,
-                   const double defaultValue)
+/**
+ * @brief register float/double config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
+ */
+bool
+registerFloat(const std::string &groupName,
+              const std::string &itemName,
+              const double defaultValue)
 {
     if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
         return false;
@@ -74,9 +111,19 @@ bool registerFloat(const std::string &groupName,
                                                                         defaultValue);
 }
 
-bool registerBoolean(const std::string &groupName,
-                     const std::string &itemName,
-                     const bool defaultValue)
+/**
+ * @brief register bool config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
+ */
+bool
+registerBoolean(const std::string &groupName,
+                const std::string &itemName,
+                const bool defaultValue)
 {
     if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
         return false;
@@ -87,9 +134,19 @@ bool registerBoolean(const std::string &groupName,
                                                                          defaultValue);
 }
 
-bool registerStringArray(const std::string &groupName,
-                         const std::string &itemName,
-                         const std::vector<std::string> &defaultValue)
+/**
+ * @brief register string-array config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
+ */
+bool
+registerStringArray(const std::string &groupName,
+                    const std::string &itemName,
+                    const std::vector<std::string> &defaultValue)
 {
     if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
         return false;
@@ -100,11 +157,21 @@ bool registerStringArray(const std::string &groupName,
                                                                              defaultValue);
 }
 
-
-// getter
-const std::string getString(const std::string &groupName,
-                            const std::string &itemName,
-                            bool &success)
+/**
+ * @brief get string-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return empty string, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
+ */
+const std::string
+getString(const std::string &groupName,
+          const std::string &itemName,
+          bool &success)
 {
     success = true;
 
@@ -119,9 +186,21 @@ const std::string getString(const std::string &groupName,
                                                                    success);
 }
 
-long getInteger(const std::string &groupName,
-                const std::string &itemName,
-                bool &success)
+/**
+ * @brief get long-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return 0, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
+ */
+long
+getInteger(const std::string &groupName,
+           const std::string &itemName,
+           bool &success)
 {
     success = true;
 
@@ -136,9 +215,21 @@ long getInteger(const std::string &groupName,
                                                                     success);
 }
 
-double getFloat(const std::string &groupName,
-                const std::string &itemName,
-                bool &success)
+/**
+ * @brief get double-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return 0.0, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
+ */
+double
+getFloat(const std::string &groupName,
+         const std::string &itemName,
+         bool &success)
 {
     success = true;
 
@@ -153,9 +244,21 @@ double getFloat(const std::string &groupName,
                                                                   success);
 }
 
-bool getBoolean(const std::string &groupName,
-                const std::string &itemName,
-                bool &success)
+/**
+ * @brief get bool-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return false, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
+ */
+bool
+getBoolean(const std::string &groupName,
+           const std::string &itemName,
+           bool &success)
 {
     success = true;
 
@@ -170,9 +273,21 @@ bool getBoolean(const std::string &groupName,
                                                                     success);
 }
 
-const std::vector<std::string> getStringArray(const std::string &groupName,
-                                              const std::string &itemName,
-                                              bool &success)
+/**
+ * @brief get string-array-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return empty string-array, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
+ */
+const std::vector<std::string>
+getStringArray(const std::string &groupName,
+               const std::string &itemName,
+               bool &success)
 {
     std::vector<std::string> result;
     success = true;
