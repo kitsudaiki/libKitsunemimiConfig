@@ -18,6 +18,176 @@ namespace Kitsunemimi
 namespace Config
 {
 
+Kitsunemimi::Config::ConfigHandler* ConfigHandler::m_config = nullptr;
+
+bool initConfig(const std::string &configFilePath,
+                std::string &errorMessage)
+{
+    if(ConfigHandler::m_config != nullptr)
+    {
+        errorMessage = "config is already initialized.";
+        return false;
+    }
+
+    ConfigHandler::m_config = new ConfigHandler();
+    return ConfigHandler::m_config->initConfig(configFilePath, errorMessage);
+}
+
+
+// register config-options
+bool registerString(const std::string &groupName,
+                    const std::string &itemName,
+                    const std::string &defaultValue)
+{
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->registerString(groupName,
+                                                                        itemName,
+                                                                        defaultValue);
+}
+
+bool registerInteger(const std::string &groupName,
+                     const std::string &itemName,
+                     const long defaultValue)
+{
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->registerInteger(groupName,
+                                                                         itemName,
+                                                                         defaultValue);
+}
+
+bool registerFloat(const std::string &groupName,
+                   const std::string &itemName,
+                   const double defaultValue)
+{
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->registerFloat(groupName,
+                                                                        itemName,
+                                                                        defaultValue);
+}
+
+bool registerBoolean(const std::string &groupName,
+                     const std::string &itemName,
+                     const bool defaultValue)
+{
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->registerBoolean(groupName,
+                                                                         itemName,
+                                                                         defaultValue);
+}
+
+bool registerStringArray(const std::string &groupName,
+                         const std::string &itemName,
+                         const std::vector<std::string> &defaultValue)
+{
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->registerStringArray(groupName,
+                                                                             itemName,
+                                                                             defaultValue);
+}
+
+
+// getter
+const std::string getString(const std::string &groupName,
+                            const std::string &itemName,
+                            bool &success)
+{
+    success = true;
+
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    {
+        success = false;
+        return "";
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->getString(groupName,
+                                                                   itemName,
+                                                                   success);
+}
+
+long getInteger(const std::string &groupName,
+                const std::string &itemName,
+                bool &success)
+{
+    success = true;
+
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    {
+        success = false;
+        return 0;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->getInteger(groupName,
+                                                                    itemName,
+                                                                    success);
+}
+
+double getFloat(const std::string &groupName,
+                const std::string &itemName,
+                bool &success)
+{
+    success = true;
+
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    {
+        success = false;
+        return 0.0;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->getFloat(groupName,
+                                                                  itemName,
+                                                                  success);
+}
+
+bool getBoolean(const std::string &groupName,
+                const std::string &itemName,
+                bool &success)
+{
+    success = true;
+
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    {
+        success = false;
+        return false;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->getBoolean(groupName,
+                                                                    itemName,
+                                                                    success);
+}
+
+const std::vector<std::string> getStringArray(const std::string &groupName,
+                                              const std::string &itemName,
+                                              bool &success)
+{
+    std::vector<std::string> result;
+    success = true;
+
+    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    {
+        success = false;
+        return result;
+    }
+
+    return Kitsunemimi::Config::ConfigHandler::m_config->getStringArray(groupName,
+                                                                        itemName,
+                                                                        success);
+}
+
 /**
  * @brief ConfigHandler::ConfigHandler
  */
@@ -35,30 +205,32 @@ ConfigHandler::~ConfigHandler()
  * @brief read a ini config-file
  *
  * @param configFilePath absolute path to the config-file to read
+ * @param errorMessage reference for error-message-output
  *
  * @return false, if reading or parsing the file failed, else true
  */
-bool ConfigHandler::readConfig(const std::string &configFilePath)
+bool ConfigHandler::initConfig(const std::string &configFilePath,
+                               std::string &errorMessage)
 {
-    std::string errorMessage = "";
-
     // read file
     m_configFilePath = configFilePath;
-    const std::pair<bool, std::string> ret = Persistence::readFile(m_configFilePath, errorMessage);
+    std::string readErrorMessage = "";
+    const std::pair<bool, std::string> ret = Persistence::readFile(m_configFilePath, readErrorMessage);
     if(ret.first == false)
     {
-        LOG_ERROR("Error while reding config-file " + configFilePath);
-        LOG_ERROR("   " + errorMessage);
+        errorMessage += "Error while reding config-file " + configFilePath + "\n";
+        errorMessage += "   " + readErrorMessage;
         return false;
     }
 
     // parse file content
     m_iniItem = new Ini::IniItem();
-    bool result = m_iniItem->parse(ret.second, errorMessage);
+    std::string parseErrorMessage = "";
+    bool result = m_iniItem->parse(ret.second, parseErrorMessage);
     if(result == false)
     {
-        LOG_ERROR("Error while reding config-file " + configFilePath);
-        LOG_ERROR("   " + errorMessage);
+        errorMessage += "Error while reding config-file " + configFilePath;
+        errorMessage += "   " + parseErrorMessage;
         return false;
     }
 
@@ -525,7 +697,7 @@ ConfigHandler::registerType(const std::string &groupName,
  *
  * @return undefined-type, if item-name and group-name are not registered, else the registered type
  */
-ConfigType
+ConfigHandler::ConfigType
 ConfigHandler::getRegisteredType(const std::string &groupName,
                                  const std::string &itemName)
 {
