@@ -75,28 +75,47 @@ Example usage in code:
 ```cpp
 #include <libKitsunemimiConfig/config_handler.h>
 
+// init configuration
+// called anywhere at the beginning of the programm
 Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
 
 bool success = false;
 
 // register values
 success = REGISTER_STRING("DEFAULT", "string_val", "");
-// variable success is true
+//     variable success is true
 success = REGISTER_INT("DEFAULT", "int_val", 42);
-// variable success is true
+//     variable success is true
 success = REGISTER_INT("DEFAULT", "another_int_val", 42);
-// variable success is true
+//     variable success is true
+
+// all register options:
+//
+// REGISTER_STRING
+// REGISTER_INT
+// REGISTER_FLOAT
+// REGISTER_BOOL
+// REGISTER_STRING_ARRAY
+
 
 std::string firstValue = GET_STRING("DEFAULT", "string_val", success);
-// variable success is true
+//     variable success is true
 long number1 = GET_INT("DEFAULT", "int_val", success);
-// variable success is true
+//     variable success is true
 long number2 = GET_INT("DEFAULT", "another_int_val", success);
-// variable success is true
+//     variable success is true
+
+// all get options:
+//
+// GET_STRING
+// GET_INT
+// GET_FLOAT
+// GET_BOOL
+// GET_STRING_ARRAY
 
 // get on not registered value
 std::string fail = GET_STRING("DEFAULT", "fail", success);
-// variable success is false
+//     variable success is false
 ```
 
 ## Contributing
