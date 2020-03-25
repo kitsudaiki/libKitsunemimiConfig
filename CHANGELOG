@@ -1,0 +1,18 @@
+# Changelog
+
+## [0.1.0] - 2020-03-25
+
+### Added
+- first implementation to read configs based on libKitsunemimiIni
+
+	- register strings
+	- register integer
+	- register float
+	- register bool
+	- register string-array
+
+	- get strings
+	- get integer
+	- get float
+	- get bool
+	- get string-array
