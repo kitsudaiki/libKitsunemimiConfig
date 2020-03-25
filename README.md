@@ -57,10 +57,47 @@ It create automatic a `build` and `result` directory in the directory, where you
 
 Tested on Debian and Ubuntu. If you use Centos, Arch, etc and the build-script fails on your machine, then please write me a mail and I will try to fix the script.
 
-## Usage
+## Usage by example
 
-(TODO)
+Content of example config-file:
 
+```
+[DEFAULT]
+string_val = asdf.asdf
+int_val = 2
+float_val = 123.0
+string_list = a,b,c
+bool_value = true
+```
+
+Example usage in code:
+
+```cpp
+#include <libKitsunemimiConfig/config_handler.h>
+
+Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
+
+bool success = false;
+
+// register values
+success = REGISTER_STRING("DEFAULT", "string_val", "");
+// variable success is true
+success = REGISTER_INT("DEFAULT", "int_val", 42);
+// variable success is true
+success = REGISTER_INT("DEFAULT", "another_int_val", 42);
+// variable success is true
+
+std::string firstValue = GET_STRING("DEFAULT", "string_val", success);
+// variable success is true
+long number1 = GET_INT("DEFAULT", "int_val", success);
+// variable success is true
+long number2 = GET_INT("DEFAULT", "another_int_val", success);
+// variable success is true
+
+// get on not registered value
+std::string fail = GET_STRING("DEFAULT", "fail", success);
+// variable success is false
+```
 
 ## Contributing
 
