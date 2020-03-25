@@ -1,3 +1,11 @@
+/**
+ *  @file       config_handler.h
+ *
+ *  @author     Tobias Anker <tobias.anker@kitsunemimi.moe>
+ *
+ *  @copyright  MIT License
+ */
+
 #ifndef CONFIG_HANDLER_H
 #define CONFIG_HANDLER_H
 

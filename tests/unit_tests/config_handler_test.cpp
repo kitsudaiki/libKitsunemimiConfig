@@ -1,3 +1,11 @@
+/**
+ *  @file       config_handler_test.cpp
+ *
+ *  @author     Tobias Anker <tobias.anker@kitsunemimi.moe>
+ *
+ *  @copyright  MIT License
+ */
+
 #include "config_handler_test.h"
 
 #include <libKitsunemimiConfig/config_handler.h>

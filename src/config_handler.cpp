@@ -1,3 +1,11 @@
+/**
+ *  @file       config_handler.cpp
+ *
+ *  @author     Tobias Anker <tobias.anker@kitsunemimi.moe>
+ *
+ *  @copyright  MIT License
+ */
+
 #include <libKitsunemimiConfig/config_handler.h>
 
 #include <libKitsunemimiCommon/common_items/data_items.h>
@@ -24,10 +32,11 @@ ConfigHandler::~ConfigHandler()
 }
 
 /**
- * @brief ConfigHandler::readConfig
- * @param configFilePath
- * @param errorMessage
- * @return
+ * @brief read a ini config-file
+ *
+ * @param configFilePath absolute path to the config-file to read
+ *
+ * @return false, if reading or parsing the file failed, else true
  */
 bool ConfigHandler::readConfig(const std::string &configFilePath)
 {
@@ -57,11 +66,13 @@ bool ConfigHandler::readConfig(const std::string &configFilePath)
 }
 
 /**
- * @brief ConfigHandler::registerConfig
- * @param groupName
- * @param itemName
- * @param defaultValue
- * @return
+ * @brief register string config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
  */
 bool
 ConfigHandler::registerString(const std::string &groupName,
@@ -73,24 +84,30 @@ ConfigHandler::registerString(const std::string &groupName,
         tempGroupName = "DEFAULT";
     }
 
+    // check type against config-file
     if(checkType(tempGroupName, itemName, ConfigType::STRING_TYPE) == false) {
         return false;
     }
+
+    // try to register type
     if(registerType(tempGroupName, itemName, ConfigType::STRING_TYPE) == false) {
         return false;
     }
 
+    // set default-type, in case the nothing was already set
     m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
- * @brief ConfigHandler::registerConfig
- * @param groupName
- * @param itemName
- * @param defaultValue
- * @return
+ * @brief register int/long config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
  */
 bool
 ConfigHandler::registerInteger(const std::string &groupName,
@@ -102,24 +119,30 @@ ConfigHandler::registerInteger(const std::string &groupName,
         tempGroupName = "DEFAULT";
     }
 
+    // check type against config-file
     if(checkType(tempGroupName, itemName, ConfigType::INT_TYPE) == false) {
         return false;
     }
+
+    // try to register type
     if(registerType(tempGroupName, itemName, ConfigType::INT_TYPE) == false) {
         return false;
     }
 
+    // set default-type, in case the nothing was already set
     m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
- * @brief ConfigHandler::registerConfig
- * @param groupName
- * @param itemName
- * @param defaultValue
- * @return
+ * @brief register float/double config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
  */
 bool
 ConfigHandler::registerFloat(const std::string &groupName,
@@ -131,24 +154,30 @@ ConfigHandler::registerFloat(const std::string &groupName,
         tempGroupName = "DEFAULT";
     }
 
+    // check type against config-file
     if(checkType(tempGroupName, itemName, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
+
+    // try to register type
     if(registerType(tempGroupName, itemName, ConfigType::FLOAT_TYPE) == false) {
         return false;
     }
 
+    // set default-type, in case the nothing was already set
     m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
- * @brief ConfigHandler::registerConfig
- * @param groupName
- * @param itemName
- * @param defaultValue
- * @return
+ * @brief register bool config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
  */
 bool
 ConfigHandler::registerBoolean(const std::string &groupName,
@@ -160,24 +189,30 @@ ConfigHandler::registerBoolean(const std::string &groupName,
         tempGroupName = "DEFAULT";
     }
 
+    // check type against config-file
     if(checkType(tempGroupName, itemName, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
+
+    // try to register type
     if(registerType(tempGroupName, itemName, ConfigType::BOOL_TYPE) == false) {
         return false;
     }
 
+    // set default-type, in case the nothing was already set
     m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
- * @brief ConfigHandler::registerConfig
- * @param groupName
- * @param itemName
- * @param defaultValue
- * @return
+ * @brief register string-array config value
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param defaultValue default value, if nothing was set inside of the config
+ *
+ * @return false, if false type or item-name and group-name are already registered
  */
 bool
 ConfigHandler::registerStringArray(const std::string &groupName,
@@ -189,24 +224,32 @@ ConfigHandler::registerStringArray(const std::string &groupName,
         tempGroupName = "DEFAULT";
     }
 
+    // check type against config-file
     if(checkType(tempGroupName, itemName, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
+
+    // try to register type
     if(registerType(tempGroupName, itemName, ConfigType::STRING_ARRAY_TYPE) == false) {
         return false;
     }
 
+    // set default-type, in case the nothing was already set
     m_iniItem->set(tempGroupName, itemName, defaultValue);
 
     return true;
 }
 
 /**
- * @brief ConfigHandler::getString
- * @param groupName
- * @param itemName
- * @param success
- * @return
+ * @brief get string-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return empty string, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
  */
 const std::string
 ConfigHandler::getString(const std::string &groupName,
@@ -214,21 +257,28 @@ ConfigHandler::getString(const std::string &groupName,
                          bool &success)
 {
     success = true;
+
+    // compare with registered type
     if(getRegisteredType(groupName, itemName) != ConfigType::STRING_TYPE)
     {
         success = false;
         return "";
     }
 
+    // get value from config
     return m_iniItem->get(groupName, itemName)->toValue()->getString();
 }
 
 /**
- * @brief ConfigHandler::getInteger
- * @param groupName
- * @param itemName
- * @param success
- * @return
+ * @brief get long-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return 0, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
  */
 long
 ConfigHandler::getInteger(const std::string &groupName,
@@ -236,21 +286,28 @@ ConfigHandler::getInteger(const std::string &groupName,
                           bool &success)
 {
     success = true;
+
+    // compare with registered type
     if(getRegisteredType(groupName, itemName) != ConfigType::INT_TYPE)
     {
         success = false;
         return 0l;
     }
 
+    // get value from config
     return m_iniItem->get(groupName, itemName)->toValue()->getLong();
 }
 
 /**
- * @brief ConfigHandler::getFloat
- * @param groupName
- * @param itemName
- * @param success
- * @return
+ * @brief get double-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return 0.0, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
  */
 double
 ConfigHandler::getFloat(const std::string &groupName,
@@ -258,21 +315,28 @@ ConfigHandler::getFloat(const std::string &groupName,
                         bool &success)
 {
     success = true;
+
+    // compare with registered type
     if(getRegisteredType(groupName, itemName) != ConfigType::FLOAT_TYPE)
     {
         success = false;
         return 0.0;
     }
 
+    // get value from config
     return m_iniItem->get(groupName, itemName)->toValue()->getDouble();
 }
 
 /**
- * @brief ConfigHandler::getBoolean
- * @param groupName
- * @param itemName
- * @param success
- * @return
+ * @brief get bool-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return false, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
  */
 bool
 ConfigHandler::getBoolean(const std::string &groupName,
@@ -280,21 +344,28 @@ ConfigHandler::getBoolean(const std::string &groupName,
                           bool &success)
 {
     success = true;
+
+    // compare with registered type
     if(getRegisteredType(groupName, itemName) != ConfigType::BOOL_TYPE)
     {
         success = false;
         return false;
     }
 
+    // get value from config
     return m_iniItem->get(groupName, itemName)->toValue()->getBool();
 }
 
 /**
- * @brief ConfigHandler::getStringArray
- * @param groupName
- * @param itemName
- * @param success
- * @return
+ * @brief get string-array-value from config
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param success reference to bool-value with the result. returns false if item-name and group-name
+ *                are not registered, else true.
+ *
+ * @return empty string-array, if item-name and group-name are not registered, else value from the
+ *         config-file or the defined default-value.
  */
 const std::vector<std::string>
 ConfigHandler::getStringArray(const std::string &groupName,
@@ -304,12 +375,14 @@ ConfigHandler::getStringArray(const std::string &groupName,
     std::vector<std::string> result;
     success = true;
 
+    // compare with registered type
     if(getRegisteredType(groupName, itemName) != ConfigType::STRING_ARRAY_TYPE)
     {
         success = false;
         return result;
     }
 
+    // get and transform result from the config-file
     DataArray* array = m_iniItem->get(groupName, itemName)->toArray();
     for(uint32_t i = 0; i < array->size(); i++)
     {
@@ -320,50 +393,61 @@ ConfigHandler::getStringArray(const std::string &groupName,
 }
 
 /**
- * @brief ConfigHandler::checkType
- * @param groupName
- * @param itemName
- * @param type
- * @return
+ * @brief check if defined type match with the type of the value within the config-file
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param type type-identifier
+ *
+ * @return true, if type match with the config-file, else false
  */
 bool
 ConfigHandler::checkType(const std::string &groupName,
                          const std::string &itemName,
                          const ConfigType type)
 {
+    // get value from config-file
     DataItem* currentItem = m_iniItem->get(groupName, itemName);
+
+    // precheck
     if(currentItem == nullptr) {
         return true;
     }
 
+    // check for array
     if(currentItem->getType() == DataItem::ARRAY_TYPE
             && type == ConfigType::STRING_ARRAY_TYPE)
     {
         return true;
     }
 
+    // check value
     if(currentItem->getType() == DataItem::VALUE_TYPE)
     {
         DataValue* value = currentItem->toValue();
 
+        // check string
         if(value->getValueType() == DataValue::STRING_TYPE
                 && type == ConfigType::STRING_TYPE)
         {
             return true;
         }
 
+        // check integer
         if(value->getValueType() == DataValue::INT_TYPE
                 && type == ConfigType::INT_TYPE)
         {
             return true;
         }
 
+        // check float
         if(value->getValueType() == DataValue::FLOAT_TYPE
                 && type == ConfigType::FLOAT_TYPE)
         {
             return true;
         }
 
+        // check boolean
         if(value->getValueType() == DataValue::BOOL_TYPE
                 && type == ConfigType::BOOL_TYPE)
         {
@@ -375,10 +459,12 @@ ConfigHandler::checkType(const std::string &groupName,
 }
 
 /**
- * @brief ConfigHandler::isRegistered
- * @param groupName
- * @param itemName
- * @return
+ * @brief check, if an item-name and group-name are already registered
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ *
+ * @return true, if item-name and group-name is already registered, else false
  */
 bool
 ConfigHandler::isRegistered(const std::string &groupName,
@@ -392,11 +478,13 @@ ConfigHandler::isRegistered(const std::string &groupName,
 }
 
 /**
- * @brief ConfigHandler::registerType
- * @param groupName
- * @param itemName
- * @param type
- * @return
+ * @brief register type
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ * @param type type-identifier to register
+ *
+ * @return false, if item-name and group-name are already registered, else true
  */
 bool
 ConfigHandler::registerType(const std::string &groupName,
@@ -430,10 +518,12 @@ ConfigHandler::registerType(const std::string &groupName,
 }
 
 /**
- * @brief ConfigHandler::getRegisteredType
- * @param groupName
- * @param itemName
- * @return
+ * @brief get registered config-type
+ *
+ * @param groupName name of the group
+ * @param itemName name of the item within the group
+ *
+ * @return undefined-type, if item-name and group-name are not registered, else the registered type
  */
 ConfigType
 ConfigHandler::getRegisteredType(const std::string &groupName,
