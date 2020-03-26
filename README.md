@@ -84,39 +84,39 @@ Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
 bool success = false;
 
 // register values
-success = REGISTER_STRING("DEFAULT", "string_val", "");
+success = REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
 //     variable success is true
-success = REGISTER_INT("DEFAULT", "int_val", 42);
+success = REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
 //     variable success is true
-success = REGISTER_INT("DEFAULT", "another_int_val", 42);
+success = REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
 //     variable success is true
 
 // all register options:
 //
-// REGISTER_STRING
-// REGISTER_INT
-// REGISTER_FLOAT
-// REGISTER_BOOL
-// REGISTER_STRING_ARRAY
+// REGISTER_STRING_CONFIG
+// REGISTER_INT_CONFIG
+// REGISTER_FLOAT_CONFIG
+// REGISTER_BOOL_CONFIG
+// REGISTER_STRING_ARRAY_CONFIG
 
 
-std::string firstValue = GET_STRING("DEFAULT", "string_val", success);
+std::string firstValue = GET_STRING_CONFIG("DEFAULT", "string_val", success);
 //     variable success is true
-long number1 = GET_INT("DEFAULT", "int_val", success);
+long number1 = GET_INT_CONFIG("DEFAULT", "int_val", success);
 //     variable success is true
-long number2 = GET_INT("DEFAULT", "another_int_val", success);
+long number2 = GET_INT_CONFIG("DEFAULT", "another_int_val", success);
 //     variable success is true
 
 // all get options:
 //
-// GET_STRING
-// GET_INT
-// GET_FLOAT
-// GET_BOOL
-// GET_STRING_ARRAY
+// GET_STRING_CONFIG
+// GET_INT_CONFIG
+// GET_FLOAT_CONFIG
+// GET_BOOL_CONFIG
+// GET_STRING_ARRAY_CONFIG
 
 // get on not registered value
-std::string fail = GET_STRING("DEFAULT", "fail", success);
+std::string fail = GET_STRING_CONFIG("DEFAULT", "fail", success);
 //     variable success is false
 ```
 

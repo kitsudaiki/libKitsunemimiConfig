@@ -37,20 +37,20 @@ ConfigHandler_Test::runTest()
                                         true);
 
     // init config
-    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
+    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath), true);
 
-    TEST_EQUAL(REGISTER_STRING("DEFAULT", "string_val", ""), true);
-    TEST_EQUAL(REGISTER_INT("DEFAULT", "int_val", 42), true);
-    TEST_EQUAL(REGISTER_INT("DEFAULT", "another_int_val", 42), true);
+    TEST_EQUAL(REGISTER_STRING_CONFIG("DEFAULT", "string_val", ""), true);
+    TEST_EQUAL(REGISTER_INT_CONFIG("DEFAULT", "int_val", 42), true);
+    TEST_EQUAL(REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42), true);
 
     bool success = false;
-    TEST_EQUAL(GET_STRING("DEFAULT", "string_val", success), "asdf.asdf");
+    TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "string_val", success), "asdf.asdf");
     TEST_EQUAL(success, true);
-    TEST_EQUAL(GET_INT("DEFAULT", "int_val", success), 2);
+    TEST_EQUAL(GET_INT_CONFIG("DEFAULT", "int_val", success), 2);
     TEST_EQUAL(success, true);
-    TEST_EQUAL(GET_INT("DEFAULT", "another_int_val", success), 42);
+    TEST_EQUAL(GET_INT_CONFIG("DEFAULT", "another_int_val", success), 42);
     TEST_EQUAL(success, true);
-    TEST_EQUAL(GET_STRING("DEFAULT", "fail", success), "");
+    TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "fail", success), "");
     TEST_EQUAL(success, false);
 
     Kitsunemimi::Persistence::deleteFileOrDir(m_testFilePath, errorMessage);
