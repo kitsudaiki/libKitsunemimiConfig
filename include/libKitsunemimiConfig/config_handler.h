@@ -13,17 +13,17 @@
 #include <vector>
 #include <map>
 
-#define REGISTER_STRING Kitsunemimi::Config::registerString
-#define REGISTER_INT Kitsunemimi::Config::registerInteger
-#define REGISTER_FLOAT Kitsunemimi::Config::registerFloat
-#define REGISTER_BOOL Kitsunemimi::Config::registerBoolean
-#define REGISTER_STRING_ARRAY Kitsunemimi::Config::registerStringArray
+#define REGISTER_STRING_CONFIG Kitsunemimi::Config::registerString
+#define REGISTER_INT_CONFIG Kitsunemimi::Config::registerInteger
+#define REGISTER_FLOAT_CONFIG Kitsunemimi::Config::registerFloat
+#define REGISTER_BOOL_CONFIG Kitsunemimi::Config::registerBoolean
+#define REGISTER_STRING_ARRAY_CONFIG Kitsunemimi::Config::registerStringArray
 
-#define GET_STRING Kitsunemimi::Config::getString
-#define GET_INT Kitsunemimi::Config::getInteger
-#define GET_FLOAT Kitsunemimi::Config::getFloat
-#define GET_BOOL Kitsunemimi::Config::getBoolean
-#define GET_STRING_ARRAY Kitsunemimi::Config::getStringArray
+#define GET_STRING_CONFIG Kitsunemimi::Config::getString
+#define GET_INT_CONFIG Kitsunemimi::Config::getInteger
+#define GET_FLOAT_CONFIG Kitsunemimi::Config::getFloat
+#define GET_BOOL_CONFIG Kitsunemimi::Config::getBoolean
+#define GET_STRING_ARRAY_CONFIG Kitsunemimi::Config::getStringArray
 
 namespace Kitsunemimi
 {
