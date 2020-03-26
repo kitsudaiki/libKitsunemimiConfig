@@ -24,22 +24,20 @@ Kitsunemimi::Config::ConfigHandler* ConfigHandler::m_config = nullptr;
  * @brief read a ini config-file
  *
  * @param configFilePath absolute path to the config-file to read
- * @param errorMessage reference for error-message-output
  *
  * @return false, if reading or parsing the file failed, else true
  */
 bool
-initConfig(const std::string &configFilePath,
-           std::string &errorMessage)
+initConfig(const std::string &configFilePath)
 {
     if(ConfigHandler::m_config != nullptr)
     {
-        errorMessage = "config is already initialized.";
+        LOG_ERROR("config is already initialized.");
         return false;
     }
 
     ConfigHandler::m_config = new ConfigHandler();
-    return ConfigHandler::m_config->initConfig(configFilePath, errorMessage);
+    return ConfigHandler::m_config->initConfig(configFilePath);
 }
 
 /**
@@ -320,21 +318,20 @@ ConfigHandler::~ConfigHandler()
  * @brief read a ini config-file
  *
  * @param configFilePath absolute path to the config-file to read
- * @param errorMessage reference for error-message-output
  *
  * @return false, if reading or parsing the file failed, else true
  */
-bool ConfigHandler::initConfig(const std::string &configFilePath,
-                               std::string &errorMessage)
+bool ConfigHandler::initConfig(const std::string &configFilePath)
 {
     // read file
     m_configFilePath = configFilePath;
     std::string readErrorMessage = "";
-    const std::pair<bool, std::string> ret = Persistence::readFile(m_configFilePath, readErrorMessage);
+    const std::pair<bool, std::string> ret = Persistence::readFile(m_configFilePath,
+                                                                   readErrorMessage);
     if(ret.first == false)
     {
-        errorMessage += "Error while reding config-file " + configFilePath + "\n";
-        errorMessage += "   " + readErrorMessage;
+        LOG_ERROR("Error while reding config-file " + configFilePath + "\n");
+        LOG_ERROR("   " + readErrorMessage);
         return false;
     }
 
@@ -344,8 +341,8 @@ bool ConfigHandler::initConfig(const std::string &configFilePath,
     bool result = m_iniItem->parse(ret.second, parseErrorMessage);
     if(result == false)
     {
-        errorMessage += "Error while reding config-file " + configFilePath;
-        errorMessage += "   " + parseErrorMessage;
+        LOG_ERROR("Error while reding config-file " + configFilePath);
+        LOG_ERROR("   " + parseErrorMessage);
         return false;
     }
 

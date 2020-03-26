@@ -35,8 +35,7 @@ namespace Config
 {
 class ConfigHandler_Test;
 
-bool initConfig(const std::string &configFilePath,
-                std::string &errorMessage);
+bool initConfig(const std::string &configFilePath);
 
 // register config-options
 bool registerString(const std::string &groupName,
@@ -80,8 +79,7 @@ public:
     ConfigHandler();
     ~ConfigHandler();
 
-    bool initConfig(const std::string &configFilePath,
-                    std::string &errorMessage);
+    bool initConfig(const std::string &configFilePath);
 
     // register config-options
     bool registerString(const std::string &groupName,

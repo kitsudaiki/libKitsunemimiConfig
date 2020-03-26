@@ -37,7 +37,7 @@ ConfigHandler_Test::runTest()
                                         true);
 
     // init config
-    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
+    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath), true);
 
     TEST_EQUAL(REGISTER_STRING_CONFIG("DEFAULT", "string_val", ""), true);
     TEST_EQUAL(REGISTER_INT_CONFIG("DEFAULT", "int_val", 42), true);

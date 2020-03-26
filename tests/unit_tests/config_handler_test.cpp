@@ -65,10 +65,9 @@ void
 ConfigHandler_Test::readConfig_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    TEST_EQUAL(configHandler.initConfig("/tmp/asönganergupuneruigndf.ini", errorMessage), false);
-    TEST_EQUAL(configHandler.initConfig(m_testFilePath, errorMessage), true);
+    TEST_EQUAL(configHandler.initConfig("/tmp/asönganergupuneruigndf.ini"), false);
+    TEST_EQUAL(configHandler.initConfig(m_testFilePath), true);
 }
 
 /**
@@ -120,9 +119,8 @@ void
 ConfigHandler_Test::checkType_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.checkType("DEFAULT", "string_val", ConfigHandler::ConfigType::INT_TYPE), false);
     TEST_EQUAL(configHandler.checkType("DEFAULT", "string_val", ConfigHandler::ConfigType::STRING_TYPE), true);
@@ -136,9 +134,8 @@ void
 ConfigHandler_Test::registerString_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerString("DEFAULT", "int_val", "default"), false);
     TEST_EQUAL(configHandler.registerString("DEFAULT", "itemName", "default"), true);
@@ -153,9 +150,8 @@ void
 ConfigHandler_Test::registerInteger_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerInteger("DEFAULT", "string_val", 42), false);
     TEST_EQUAL(configHandler.registerInteger("DEFAULT", "itemName", 42), true);
@@ -170,9 +166,8 @@ void
 ConfigHandler_Test::registerFloat_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerFloat("DEFAULT", "string_val", 42.0), false);
     TEST_EQUAL(configHandler.registerFloat("DEFAULT", "itemName", 42.0), true);
@@ -187,9 +182,8 @@ void
 ConfigHandler_Test::registerBoolean_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "string_val", true), false);
     TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "itemName", true), true);
@@ -204,10 +198,9 @@ void
 ConfigHandler_Test::registerStringArray_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     std::vector<std::string> defaultValue;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
     defaultValue.push_back("test");
 
     TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_val", defaultValue), false);
@@ -223,10 +216,9 @@ void
 ConfigHandler_Test::getString_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     bool success = false;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     // test if unregistered
     TEST_EQUAL(configHandler.getString("DEFAULT", "string_val", success), "");
@@ -256,10 +248,9 @@ void
 ConfigHandler_Test::getInteger_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     bool success = false;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     // test if unregistered
     TEST_EQUAL(configHandler.getInteger("DEFAULT", "int_val", success), 0);
@@ -289,10 +280,9 @@ void
 ConfigHandler_Test::getFloat_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     bool success = false;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     // test if unregistered
     TEST_EQUAL(configHandler.getFloat("DEFAULT", "float_val", success), 0.0);
@@ -322,10 +312,9 @@ void
 ConfigHandler_Test::getBoolean_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     bool success = false;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
 
     // test if unregistered
     TEST_EQUAL(configHandler.getBoolean("DEFAULT", "bool_value", success), false);
@@ -355,12 +344,11 @@ void
 ConfigHandler_Test::getStringArray_test()
 {
     ConfigHandler configHandler;
-    std::string errorMessage = "";
     bool success = false;
     std::vector<std::string> defaultValue;
     std::vector<std::string> ret;
 
-    configHandler.initConfig(m_testFilePath, errorMessage);
+    configHandler.initConfig(m_testFilePath);
     defaultValue.push_back("test");
 
     // test if unregistered
