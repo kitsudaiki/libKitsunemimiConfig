@@ -20,14 +20,13 @@ name | repository | version | task
 g++ | g++ | 6.x | Compiler for the C++ code.
 qmake | qt5-qmake | 5.x | This package provides the tool qmake, to build the project
 boost-filesystem library | libboost-filesystem-dev | 1.6x | interactions with files and directories on the system
-sqlite3 library | libsqlite3-dev | 3.x | handling of sqlite databases
 FLEX | flex | >= 2.6 | Build the lexer-code for all used parser.
 GNU Bison | bison | 3.x | Build the parser-code together with the lexer-code.
 
 Installation on Ubuntu/Debian:
 
 ```bash
-sudo apt-get install g++ qt5-qmake libboost-filesystem-dev libsqlite3-dev flex bison
+sudo apt-get install g++ qt5-qmake libboost-filesystem-dev flex bison
 ```
 
 IMPORTANT: All my projects are only tested on Linux. 
@@ -37,7 +36,7 @@ IMPORTANT: All my projects are only tested on Linux.
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
 libKitsunemimiCommon | v0.12.0 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
-libKitsunemimiPersistence | v0.7.1 | https://github.com/tobiasanker/libKitsunemimiPersistence.git
+libKitsunemimiPersistence | v0.7.2 | https://github.com/tobiasanker/libKitsunemimiPersistence.git
 libKitsunemimiIni | v0.4.1 | https://github.com/tobiasanker/libKitsunemimiIni.git
 
 HINT: These Kitsunemimi-Libraries will be downloaded and build automatically with the build-script below.
