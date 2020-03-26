@@ -12,6 +12,7 @@ build:
 
     - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'/builds/tobiasanker/result'
     - /builds/tobiasanker/build/libKitsunemimiConfig/tests/unit_tests/unit_tests
+    - /builds/tobiasanker/build/libKitsunemimiConfig/tests/functional_tests/functional_tests
 
   tags:
     - docker
