@@ -326,9 +326,11 @@ bool ConfigHandler::initConfig(const std::string &configFilePath)
     // read file
     m_configFilePath = configFilePath;
     std::string readErrorMessage = "";
-    const std::pair<bool, std::string> ret = Persistence::readFile(m_configFilePath,
-                                                                   readErrorMessage);
-    if(ret.first == false)
+    std::string fileContent = "";
+    bool ret = Persistence::readFile(fileContent,
+                                     m_configFilePath,
+                                     readErrorMessage);
+    if(ret == false)
     {
         LOG_ERROR("Error while reding config-file " + configFilePath + "\n");
         LOG_ERROR("   " + readErrorMessage);
@@ -338,7 +340,7 @@ bool ConfigHandler::initConfig(const std::string &configFilePath)
     // parse file content
     m_iniItem = new Ini::IniItem();
     std::string parseErrorMessage = "";
-    bool result = m_iniItem->parse(ret.second, parseErrorMessage);
+    bool result = m_iniItem->parse(fileContent, parseErrorMessage);
     if(result == false)
     {
         LOG_ERROR("Error while reding config-file " + configFilePath);
