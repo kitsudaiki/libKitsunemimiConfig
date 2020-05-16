@@ -797,7 +797,7 @@ ConfigHandler::registerType(const std::string &groupName,
     outerIt = m_registeredConfigs.find(groupName);
     if(outerIt != m_registeredConfigs.end())
     {
-        outerIt->second.insert(std::pair<std::string, ConfigType>(itemName, type));
+        outerIt->second.insert(std::make_pair(itemName, type));
     }
 
     return true;
