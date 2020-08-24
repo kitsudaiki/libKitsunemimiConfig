@@ -36,9 +36,9 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsunemimiCommon | v0.15.1 |  https://github.com/tobiasanker/libKitsunemimiCommon.git
-libKitsunemimiPersistence | v0.10.0 | https://github.com/tobiasanker/libKitsunemimiPersistence.git
-libKitsunemimiIni | v0.4.3 | https://github.com/tobiasanker/libKitsunemimiIni.git
+libKitsunemimiCommon | v0.15.1 |  https://github.com/kitsudaiki/libKitsunemimiCommon.git
+libKitsunemimiPersistence | v0.10.0 | https://github.com/kitsudaiki/libKitsunemimiPersistence.git
+libKitsunemimiIni | v0.4.3 | https://github.com/kitsudaiki/libKitsunemimiIni.git
 
 HINT: These Kitsunemimi-Libraries will be downloaded and build automatically with the build-script below.
 
@@ -50,7 +50,7 @@ In all of my repositories you will find a `build.sh`. You only have to run this 
 Run the following commands:
 
 ```
-git clone https://github.com/tobiasanker/libKitsunemimiConfig.git
+git clone https://github.com/kitsudaiki/libKitsunemimiConfig.git
 cd libKitsunemimiConfig
 ./build.sh
 cd ../result
