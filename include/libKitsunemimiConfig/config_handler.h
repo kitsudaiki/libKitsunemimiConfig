@@ -36,6 +36,7 @@ namespace Config
 class ConfigHandler_Test;
 
 bool initConfig(const std::string &configFilePath);
+void resetConfig();
 
 // register config-options
 bool registerString(const std::string &groupName,

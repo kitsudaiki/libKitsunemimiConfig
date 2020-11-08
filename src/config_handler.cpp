@@ -41,6 +41,19 @@ initConfig(const std::string &configFilePath)
 }
 
 /**
+ * @brief reset configuration (primary to test different configs in one test)
+ */
+void
+resetConfig()
+{
+    if(ConfigHandler::m_config != nullptr)
+    {
+        delete ConfigHandler::m_config;
+        ConfigHandler::m_config = nullptr;
+    }
+}
+
+/**
  * @brief register string config value
  *
  * @param groupName name of the group
