@@ -17,17 +17,16 @@ This library provides a simple interface for reading config files.
 
 name | repository | version | task
 --- | --- | --- | ---
-g++ | g++ | >= 6.0 | Compiler for the C++ code.
+g++ | g++ | >= 8.0 | Compiler for the C++ code.
 make | make | >= 4.0 | process the make-file, which is created by qmake to build the programm with g++
 qmake | qt5-qmake | >= 5.0 | This package provides the tool qmake, which is similar to cmake and create the make-file for compilation.
-boost-filesystem library | libboost-filesystem-dev | >= 1.6 | interactions with files and directories on the system
 FLEX | flex | >= 2.6 | Build the lexer-code for all used parser.
 GNU Bison | bison | 3.x | Build the parser-code together with the lexer-code.
 
 Installation on Ubuntu/Debian:
 
 ```bash
-sudo apt-get install g++ make qt5-qmake libboost-filesystem-dev flex bison
+sudo apt-get install g++ make qt5-qmake flex bison
 ```
 
 IMPORTANT: All my projects are only tested on Linux. 
@@ -36,9 +35,8 @@ IMPORTANT: All my projects are only tested on Linux.
 
 Repository-Name | Version-Tag | Download-Path
 --- | --- | ---
-libKitsunemimiCommon | v0.18.0 |  https://github.com/kitsudaiki/libKitsunemimiCommon.git
-libKitsunemimiPersistence | v0.10.2 | https://github.com/kitsudaiki/libKitsunemimiPersistence.git
-libKitsunemimiIni | v0.4.6 | https://github.com/kitsudaiki/libKitsunemimiIni.git
+libKitsunemimiCommon | v0.20.0 |  https://github.com/kitsudaiki/libKitsunemimiCommon.git
+libKitsunemimiIni | v0.4.7 | https://github.com/kitsudaiki/libKitsunemimiIni.git
 
 HINT: These Kitsunemimi-Libraries will be downloaded and build automatically with the build-script below.
 

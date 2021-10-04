@@ -9,8 +9,8 @@
 #include <libKitsunemimiConfig/config_handler.h>
 
 #include <libKitsunemimiCommon/common_items/data_items.h>
-#include <libKitsunemimiPersistence/files/text_file.h>
-#include <libKitsunemimiPersistence/logger/logger.h>
+#include <libKitsunemimiCommon/files/text_file.h>
+#include <libKitsunemimiCommon/logger.h>
 #include <libKitsunemimiIni/ini_item.h>
 
 namespace Kitsunemimi
@@ -340,9 +340,7 @@ bool ConfigHandler::initConfig(const std::string &configFilePath)
     m_configFilePath = configFilePath;
     std::string readErrorMessage = "";
     std::string fileContent = "";
-    bool ret = Persistence::readFile(fileContent,
-                                     m_configFilePath,
-                                     readErrorMessage);
+    bool ret = readFile(fileContent, m_configFilePath, readErrorMessage);
     if(ret == false)
     {
         LOG_ERROR("Error while reding config-file " + configFilePath + "\n");
