@@ -9,8 +9,8 @@
 #include "config_handler_test.h"
 
 #include <libKitsunemimiConfig/config_handler.h>
-#include <libKitsunemimiPersistence/files/text_file.h>
-#include <libKitsunemimiPersistence/files/file_methods.h>
+#include <libKitsunemimiCommon/files/text_file.h>
+#include <libKitsunemimiCommon/common_methods/file_methods.h>
 
 namespace Kitsunemimi
 {
@@ -31,10 +31,10 @@ ConfigHandler_Test::runTest()
 {
     std::string errorMessage = "";
 
-    Kitsunemimi::Persistence::writeFile(m_testFilePath,
-                                        getTestString(),
-                                        errorMessage,
-                                        true);
+    Kitsunemimi::writeFile(m_testFilePath,
+                           getTestString(),
+                           errorMessage,
+                           true);
 
     // init config
     TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath), true);
@@ -53,7 +53,7 @@ ConfigHandler_Test::runTest()
     TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "fail", success), "");
     TEST_EQUAL(success, false);
 
-    Kitsunemimi::Persistence::deleteFileOrDir(m_testFilePath, errorMessage);
+    Kitsunemimi::deleteFileOrDir(m_testFilePath, errorMessage);
 
 }
 
