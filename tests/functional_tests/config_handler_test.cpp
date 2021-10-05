@@ -39,9 +39,9 @@ ConfigHandler_Test::runTest()
     // init config
     TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath), true);
 
-    TEST_EQUAL(REGISTER_STRING_CONFIG("DEFAULT", "string_val", ""), true);
-    TEST_EQUAL(REGISTER_INT_CONFIG("DEFAULT", "int_val", 42), true);
-    TEST_EQUAL(REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42), true);
+    REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
+    REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
+    REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
 
     bool success = false;
     TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "string_val", success), "asdf.asdf");
