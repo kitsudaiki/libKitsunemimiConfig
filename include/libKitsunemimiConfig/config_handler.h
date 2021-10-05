@@ -36,6 +36,7 @@ namespace Config
 class ConfigHandler_Test;
 
 bool initConfig(const std::string &configFilePath);
+bool isConfigValid();
 void resetConfig();
 
 // register config-options
@@ -86,6 +87,7 @@ public:
     ~ConfigHandler();
 
     bool initConfig(const std::string &configFilePath);
+    bool isConfigValid() const;
 
     // register config-options
     void registerString(const std::string &groupName,
@@ -152,13 +154,14 @@ private:
     ConfigType getRegisteredType(const std::string &groupName,
                                  const std::string &itemName);
 
-    void logTypeError(const std::string &groupName, const std::string &itemName);
-    void logRegisterTypeError(const std::string &groupName, const std::string &itemName);
-    void logRequiredError(const std::string &groupName, const std::string &itemName);
+    bool registerValue(std::string &groupName,
+                       const std::string &itemName,
+                       const ConfigType type,
+                       const bool required);
 
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;
-    bool m_configValid = false;
+    bool m_configValid = true;
     std::map<std::string, std::map<std::string, ConfigType>> m_registeredConfigs;
 };
 
