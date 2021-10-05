@@ -80,15 +80,14 @@ Example usage in code:
 // called anywhere at the beginning of the programm
 Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
 
-bool success = false;
-
 // register values
-success = REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
-//     variable success is true
-success = REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
-//     variable success is true
-success = REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
-//     variable success is true
+REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
+REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
+REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
+
+// check if config is valid and all registrations were successfull
+bool valid = Kitsunemimi::Config::isConfigValid();
+// is true in this example
 
 // all register options:
 //
@@ -98,6 +97,7 @@ success = REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
 // REGISTER_BOOL_CONFIG
 // REGISTER_STRING_ARRAY_CONFIG
 
+bool success = false;
 
 std::string firstValue = GET_STRING_CONFIG("DEFAULT", "string_val", success);
 //     variable success is true
