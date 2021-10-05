@@ -36,24 +36,30 @@ namespace Config
 class ConfigHandler_Test;
 
 bool initConfig(const std::string &configFilePath);
+bool isConfigValid();
 void resetConfig();
 
 // register config-options
-bool registerString(const std::string &groupName,
+void registerString(const std::string &groupName,
                     const std::string &itemName,
-                    const std::string &defaultValue);
-bool registerInteger(const std::string &groupName,
+                    const std::string &defaultValue = "",
+                    const bool required = false);
+void registerInteger(const std::string &groupName,
                      const std::string &itemName,
-                     const long defaultValue);
-bool registerFloat(const std::string &groupName,
+                     const long defaultValue = 0,
+                     const bool required = false);
+void registerFloat(const std::string &groupName,
                    const std::string &itemName,
-                   const double defaultValue);
-bool registerBoolean(const std::string &groupName,
+                   const double defaultValue = 0.0,
+                   const bool required = false);
+void registerBoolean(const std::string &groupName,
                      const std::string &itemName,
-                     const bool defaultValue);
-bool registerStringArray(const std::string &groupName,
+                     const bool defaultValue = false,
+                     const bool required = false);
+void registerStringArray(const std::string &groupName,
                          const std::string &itemName,
-                         const std::vector<std::string> &defaultValue);
+                         const std::vector<std::string> &defaultValue = {},
+                         const bool required = false);
 
 // getter
 const std::string getString(const std::string &groupName,
@@ -81,23 +87,29 @@ public:
     ~ConfigHandler();
 
     bool initConfig(const std::string &configFilePath);
+    bool isConfigValid() const;
 
     // register config-options
-    bool registerString(const std::string &groupName,
+    void registerString(const std::string &groupName,
                         const std::string &itemName,
-                        const std::string &defaultValue);
-    bool registerInteger(const std::string &groupName,
+                        const std::string &defaultValue = "",
+                        const bool required = false);
+    void registerInteger(const std::string &groupName,
                          const std::string &itemName,
-                         const long defaultValue);
-    bool registerFloat(const std::string &groupName,
+                         const long defaultValue = 0,
+                         const bool required = false);
+    void registerFloat(const std::string &groupName,
                        const std::string &itemName,
-                       const double defaultValue);
-    bool registerBoolean(const std::string &groupName,
+                       const double defaultValue = 0.0,
+                       const bool required = false);
+    void registerBoolean(const std::string &groupName,
                          const std::string &itemName,
-                         const bool defaultValue);
-    bool registerStringArray(const std::string &groupName,
+                         const bool defaultValue = false,
+                         const bool required = false);
+    void registerStringArray(const std::string &groupName,
                              const std::string &itemName,
-                             const std::vector<std::string> &defaultValue);
+                             const std::vector<std::string> &defaultValue = {},
+                             const bool required = false);
 
     // getter
     const std::string getString(const std::string &groupName,
@@ -142,8 +154,14 @@ private:
     ConfigType getRegisteredType(const std::string &groupName,
                                  const std::string &itemName);
 
+    bool registerValue(std::string &groupName,
+                       const std::string &itemName,
+                       const ConfigType type,
+                       const bool required);
+
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;
+    bool m_configValid = true;
     std::map<std::string, std::map<std::string, ConfigType>> m_registeredConfigs;
 };
 

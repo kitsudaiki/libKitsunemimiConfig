@@ -137,10 +137,10 @@ ConfigHandler_Test::registerString_test()
 
     configHandler.initConfig(m_testFilePath);
 
-    TEST_EQUAL(configHandler.registerString("DEFAULT", "int_val", "default"), false);
-    TEST_EQUAL(configHandler.registerString("DEFAULT", "itemName", "default"), true);
-    TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), true);
-    TEST_EQUAL(configHandler.registerString("DEFAULT", "string_val", "default"), false);
+    configHandler.registerString("DEFAULT", "int_val", "default");
+    configHandler.registerString("DEFAULT", "itemName", "default");
+    configHandler.registerString("DEFAULT", "string_val", "default");
+    configHandler.registerString("DEFAULT", "string_val", "default");
 }
 
 /**
@@ -153,10 +153,10 @@ ConfigHandler_Test::registerInteger_test()
 
     configHandler.initConfig(m_testFilePath);
 
-    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "string_val", 42), false);
-    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "itemName", 42), true);
-    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), true);
-    TEST_EQUAL(configHandler.registerInteger("DEFAULT", "int_val", 42), false);
+    configHandler.registerInteger("DEFAULT", "string_val", 42);
+    configHandler.registerInteger("DEFAULT", "itemName", 42);
+    configHandler.registerInteger("DEFAULT", "int_val", 42);
+    configHandler.registerInteger("DEFAULT", "int_val", 42);
 }
 
 /**
@@ -169,10 +169,10 @@ ConfigHandler_Test::registerFloat_test()
 
     configHandler.initConfig(m_testFilePath);
 
-    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "string_val", 42.0), false);
-    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "itemName", 42.0), true);
-    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), true);
-    TEST_EQUAL(configHandler.registerFloat("DEFAULT", "float_val", 42.0), false);
+    configHandler.registerFloat("DEFAULT", "string_val", 42.0);
+    configHandler.registerFloat("DEFAULT", "itemName", 42.0);
+    configHandler.registerFloat("DEFAULT", "float_val", 42.0);
+    configHandler.registerFloat("DEFAULT", "float_val", 42.0);
 }
 
 /**
@@ -185,10 +185,10 @@ ConfigHandler_Test::registerBoolean_test()
 
     configHandler.initConfig(m_testFilePath);
 
-    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "string_val", true), false);
-    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "itemName", true), true);
-    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), true);
-    TEST_EQUAL(configHandler.registerBoolean("DEFAULT", "bool_value", true), false);
+    configHandler.registerBoolean("DEFAULT", "string_val", true);
+    configHandler.registerBoolean("DEFAULT", "itemName", true);
+    configHandler.registerBoolean("DEFAULT", "bool_value", true);
+    configHandler.registerBoolean("DEFAULT", "bool_value", true);
 }
 
 /**
@@ -203,10 +203,10 @@ ConfigHandler_Test::registerStringArray_test()
     configHandler.initConfig(m_testFilePath);
     defaultValue.push_back("test");
 
-    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_val", defaultValue), false);
-    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "itemName", defaultValue), true);
-    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), true);
-    TEST_EQUAL(configHandler.registerStringArray("DEFAULT", "string_list", defaultValue), false);
+    configHandler.registerStringArray("DEFAULT", "string_val", defaultValue);
+    configHandler.registerStringArray("DEFAULT", "itemName", defaultValue);
+    configHandler.registerStringArray("DEFAULT", "string_list", defaultValue);
+    configHandler.registerStringArray("DEFAULT", "string_list", defaultValue);
 }
 
 /**
