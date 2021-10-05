@@ -18,7 +18,7 @@ namespace Kitsunemimi
 namespace Config
 {
 
-Kitsunemimi::Config::ConfigHandler* ConfigHandler::m_config = nullptr;
+ConfigHandler* ConfigHandler::m_config = nullptr;
 
 /**
  * @brief read a ini config-file
@@ -67,13 +67,11 @@ registerString(const std::string &groupName,
                const std::string &itemName,
                const std::string &defaultValue)
 {
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+    if(ConfigHandler::m_config == nullptr) {
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->registerString(groupName,
-                                                                        itemName,
-                                                                        defaultValue);
+    return ConfigHandler::m_config->registerString(groupName, itemName, defaultValue);
 }
 
 /**
@@ -90,13 +88,11 @@ registerInteger(const std::string &groupName,
                 const std::string &itemName,
                 const long defaultValue)
 {
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+    if(ConfigHandler::m_config == nullptr) {
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->registerInteger(groupName,
-                                                                         itemName,
-                                                                         defaultValue);
+    return ConfigHandler::m_config->registerInteger(groupName, itemName,  defaultValue);
 }
 
 /**
@@ -113,13 +109,11 @@ registerFloat(const std::string &groupName,
               const std::string &itemName,
               const double defaultValue)
 {
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+    if(ConfigHandler::m_config == nullptr) {
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->registerFloat(groupName,
-                                                                        itemName,
-                                                                        defaultValue);
+    return ConfigHandler::m_config->registerFloat(groupName, itemName, defaultValue);
 }
 
 /**
@@ -136,13 +130,11 @@ registerBoolean(const std::string &groupName,
                 const std::string &itemName,
                 const bool defaultValue)
 {
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+    if(ConfigHandler::m_config == nullptr) {
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->registerBoolean(groupName,
-                                                                         itemName,
-                                                                         defaultValue);
+    return ConfigHandler::m_config->registerBoolean(groupName, itemName, defaultValue);
 }
 
 /**
@@ -159,13 +151,11 @@ registerStringArray(const std::string &groupName,
                     const std::string &itemName,
                     const std::vector<std::string> &defaultValue)
 {
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr) {
+    if(ConfigHandler::m_config == nullptr) {
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->registerStringArray(groupName,
-                                                                             itemName,
-                                                                             defaultValue);
+    return ConfigHandler::m_config->registerStringArray(groupName, itemName, defaultValue);
 }
 
 /**
@@ -186,15 +176,13 @@ getString(const std::string &groupName,
 {
     success = true;
 
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    if(ConfigHandler::m_config == nullptr)
     {
         success = false;
         return "";
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->getString(groupName,
-                                                                   itemName,
-                                                                   success);
+    return ConfigHandler::m_config->getString(groupName, itemName, success);
 }
 
 /**
@@ -215,15 +203,13 @@ getInteger(const std::string &groupName,
 {
     success = true;
 
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    if(ConfigHandler::m_config == nullptr)
     {
         success = false;
         return 0;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->getInteger(groupName,
-                                                                    itemName,
-                                                                    success);
+    return ConfigHandler::m_config->getInteger(groupName, itemName, success);
 }
 
 /**
@@ -244,15 +230,13 @@ getFloat(const std::string &groupName,
 {
     success = true;
 
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    if(ConfigHandler::m_config == nullptr)
     {
         success = false;
         return 0.0;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->getFloat(groupName,
-                                                                  itemName,
-                                                                  success);
+    return ConfigHandler::m_config->getFloat(groupName, itemName, success);
 }
 
 /**
@@ -273,15 +257,13 @@ getBoolean(const std::string &groupName,
 {
     success = true;
 
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    if(ConfigHandler::m_config == nullptr)
     {
         success = false;
         return false;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->getBoolean(groupName,
-                                                                    itemName,
-                                                                    success);
+    return ConfigHandler::m_config->getBoolean(groupName, itemName, success);
 }
 
 /**
@@ -303,15 +285,13 @@ getStringArray(const std::string &groupName,
     std::vector<std::string> result;
     success = true;
 
-    if(Kitsunemimi::Config::ConfigHandler::m_config == nullptr)
+    if(ConfigHandler::m_config == nullptr)
     {
         success = false;
         return result;
     }
 
-    return Kitsunemimi::Config::ConfigHandler::m_config->getStringArray(groupName,
-                                                                        itemName,
-                                                                        success);
+    return ConfigHandler::m_config->getStringArray(groupName, itemName, success);
 }
 
 /**
