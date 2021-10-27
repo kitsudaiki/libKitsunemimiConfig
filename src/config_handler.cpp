@@ -32,7 +32,10 @@ initConfig(const std::string &configFilePath)
 {
     if(ConfigHandler::m_config != nullptr)
     {
-        LOG_ERROR("config is already initialized.");
+        ErrorContainer error;
+        error.errorMessage = "config is already initialized.";
+        error.possibleSolution = "nothing to do";
+        LOG_ERROR(error);
         return false;
     }
 
@@ -45,7 +48,8 @@ initConfig(const std::string &configFilePath)
  *
  * @return true, if valid, else false
  */
-bool isConfigValid()
+bool
+isConfigValid()
 {
     if(ConfigHandler::m_config == nullptr) {
         return false;
@@ -353,8 +357,10 @@ ConfigHandler::initConfig(const std::string &configFilePath)
     bool ret = readFile(fileContent, m_configFilePath, readErrorMessage);
     if(ret == false)
     {
-        LOG_ERROR("Error while reding config-file " + configFilePath + "\n");
-        LOG_ERROR("   " + readErrorMessage);
+        ErrorContainer error;
+        error.errorMessage = "Error while reading config-file " + configFilePath + "\n"
+                             "   " + readErrorMessage;
+        LOG_ERROR(error);
         return false;
     }
 
@@ -364,8 +370,9 @@ ConfigHandler::initConfig(const std::string &configFilePath)
     bool result = m_iniItem->parse(fileContent, parseErrorMessage);
     if(result == false)
     {
-        LOG_ERROR("Error while reding config-file " + configFilePath);
-        LOG_ERROR("   " + parseErrorMessage);
+        ErrorContainer error;
+        error.errorMessage = "Error while parsing config-file " + configFilePath + "\n";
+                             "   " + parseErrorMessage;
         return false;
     }
 
@@ -848,9 +855,11 @@ ConfigHandler::registerValue(std::string &groupName,
     // check type against config-file
     if(checkType(groupName, itemName, type) == false)
     {
-        LOG_ERROR("Config registration failed because item has the false value type: \n"
-                  "    group: \'" + groupName + "\'\n"
-                  "    item: \'" + itemName + "\'");
+        ErrorContainer error;
+        error.errorMessage = "Config registration failed because item has the false value type: \n"
+                             "    group: \'" + groupName + "\'\n"
+                             "    item: \'" + itemName + "\'";
+        LOG_ERROR(error);
         m_configValid = false;
         return false;
     }
@@ -859,9 +868,12 @@ ConfigHandler::registerValue(std::string &groupName,
     if(required
             && m_iniItem->get(groupName, itemName) == nullptr)
     {
-        LOG_ERROR("Config registration failed because required value was not set in the config: \n"
-                  "    group: \'" + groupName + "\'\n"
-                  "    item: \'" + itemName + "\'");
+        ErrorContainer error;
+        error.errorMessage = "Config registration failed because required "
+                             "value was not set in the config: \n"
+                             "    group: \'" + groupName + "\'\n"
+                             "    item: \'" + itemName + "\'";
+        LOG_ERROR(error);
         m_configValid = false;
         return false;
     }
@@ -869,9 +881,11 @@ ConfigHandler::registerValue(std::string &groupName,
     // try to register type
     if(registerType(groupName, itemName, type) == false)
     {
-        LOG_ERROR("Config registration failed because item is already registered: \n"
-                  "    group: \'" + groupName + "\'\n"
-                  "    item: \'" + itemName + "\'");
+        ErrorContainer error;
+        error.errorMessage = "Config registration failed because item is already registered: \n"
+                             "    group: \'" + groupName + "\'\n"
+                             "    item: \'" + itemName + "\'";
+        LOG_ERROR(error);
         m_configValid = false;
         return false;
     }
