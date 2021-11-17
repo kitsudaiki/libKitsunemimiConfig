@@ -29,19 +29,15 @@ ConfigHandler_Test::ConfigHandler_Test()
 void
 ConfigHandler_Test::runTest()
 {
-    std::string errorMessage = "";
-
-    Kitsunemimi::writeFile(m_testFilePath,
-                           getTestString(),
-                           errorMessage,
-                           true);
+    ErrorContainer error;
+    Kitsunemimi::writeFile(m_testFilePath, getTestString(), error, true);
 
     // init config
-    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath), true);
+    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath, error), true);
 
-    REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
-    REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
-    REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
+    REGISTER_STRING_CONFIG("DEFAULT", "string_val", error, "");
+    REGISTER_INT_CONFIG("DEFAULT", "int_val", error, 42);
+    REGISTER_INT_CONFIG("DEFAULT", "another_int_val", error, 42);
 
     bool success = false;
     TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "string_val", success), "asdf.asdf");
@@ -53,7 +49,7 @@ ConfigHandler_Test::runTest()
     TEST_EQUAL(GET_STRING_CONFIG("DEFAULT", "fail", success), "");
     TEST_EQUAL(success, false);
 
-    Kitsunemimi::deleteFileOrDir(m_testFilePath, errorMessage);
+    Kitsunemimi::deleteFileOrDir(m_testFilePath, error);
 
 }
 

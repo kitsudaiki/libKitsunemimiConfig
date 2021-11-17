@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <libKitsunemimiCommon/logger.h>
 
 #define REGISTER_STRING_CONFIG Kitsunemimi::Config::registerString
 #define REGISTER_INT_CONFIG Kitsunemimi::Config::registerInteger
@@ -35,29 +36,35 @@ namespace Config
 {
 class ConfigHandler_Test;
 
-bool initConfig(const std::string &configFilePath);
+bool initConfig(const std::string &configFilePath,
+                ErrorContainer &error);
 bool isConfigValid();
 void resetConfig();
 
 // register config-options
 void registerString(const std::string &groupName,
                     const std::string &itemName,
+                    ErrorContainer &error,
                     const std::string &defaultValue = "",
                     const bool required = false);
 void registerInteger(const std::string &groupName,
                      const std::string &itemName,
+                     ErrorContainer &error,
                      const long defaultValue = 0,
                      const bool required = false);
 void registerFloat(const std::string &groupName,
                    const std::string &itemName,
+                   ErrorContainer &error,
                    const double defaultValue = 0.0,
                    const bool required = false);
 void registerBoolean(const std::string &groupName,
                      const std::string &itemName,
+                     ErrorContainer &error,
                      const bool defaultValue = false,
                      const bool required = false);
 void registerStringArray(const std::string &groupName,
                          const std::string &itemName,
+                         ErrorContainer &error,
                          const std::vector<std::string> &defaultValue = {},
                          const bool required = false);
 
@@ -86,28 +93,34 @@ public:
     ConfigHandler();
     ~ConfigHandler();
 
-    bool initConfig(const std::string &configFilePath);
+    bool initConfig(const std::string &configFilePath,
+                    ErrorContainer &error);
     bool isConfigValid() const;
 
     // register config-options
     void registerString(const std::string &groupName,
                         const std::string &itemName,
+                        ErrorContainer &error,
                         const std::string &defaultValue = "",
                         const bool required = false);
     void registerInteger(const std::string &groupName,
                          const std::string &itemName,
+                         ErrorContainer &error,
                          const long defaultValue = 0,
                          const bool required = false);
     void registerFloat(const std::string &groupName,
                        const std::string &itemName,
+                       ErrorContainer &error,
                        const double defaultValue = 0.0,
                        const bool required = false);
     void registerBoolean(const std::string &groupName,
                          const std::string &itemName,
+                         ErrorContainer &error,
                          const bool defaultValue = false,
                          const bool required = false);
     void registerStringArray(const std::string &groupName,
                              const std::string &itemName,
+                             ErrorContainer &error,
                              const std::vector<std::string> &defaultValue = {},
                              const bool required = false);
 
@@ -157,7 +170,8 @@ private:
     bool registerValue(std::string &groupName,
                        const std::string &itemName,
                        const ConfigType type,
-                       const bool required);
+                       const bool required,
+                       ErrorContainer &error);
 
     std::string m_configFilePath = "";
     Ini::IniItem* m_iniItem = nullptr;
