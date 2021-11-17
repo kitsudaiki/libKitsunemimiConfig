@@ -75,19 +75,25 @@ Example usage in code:
 
 ```cpp
 #include <libKitsunemimiConfig/config_handler.h>
+#include <libKitsunemimiCommon/logger.h>
+
+ErrorContainer error;
 
 // init configuration
 // called anywhere at the beginning of the programm
-Kitsunemimi::Config::initConfig(m_testFilePath, errorMessage), true);
+Kitsunemimi::Config::initConfig(m_testFilePath, error), true);
 
 // register values
-REGISTER_STRING_CONFIG("DEFAULT", "string_val", "");
-REGISTER_INT_CONFIG("DEFAULT", "int_val", 42);
-REGISTER_INT_CONFIG("DEFAULT", "another_int_val", 42);
+REGISTER_STRING_CONFIG("DEFAULT", "string_val", error, "");
+REGISTER_INT_CONFIG("DEFAULT", "int_val", error, 42);
+REGISTER_INT_CONFIG("DEFAULT", "another_int_val", error, 42);
 
 // check if config is valid and all registrations were successfull
 bool valid = Kitsunemimi::Config::isConfigValid();
 // is true in this example
+if(valid == false) {
+	LOG_ERROR(error);
+}
 
 // all register options:
 //
