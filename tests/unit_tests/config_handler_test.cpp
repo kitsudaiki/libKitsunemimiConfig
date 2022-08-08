@@ -10,7 +10,7 @@
 
 #include <libKitsunemimiConfig/config_handler.h>
 #include <libKitsunemimiCommon/files/text_file.h>
-#include <libKitsunemimiCommon/common_methods/file_methods.h>
+#include <libKitsunemimiCommon/methods/file_methods.h>
 
 namespace Kitsunemimi
 {

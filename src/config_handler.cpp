@@ -8,7 +8,7 @@
 
 #include <libKitsunemimiConfig/config_handler.h>
 
-#include <libKitsunemimiCommon/common_items/data_items.h>
+#include <libKitsunemimiCommon/items/data_items.h>
 #include <libKitsunemimiCommon/files/text_file.h>
 #include <libKitsunemimiIni/ini_item.h>
 
