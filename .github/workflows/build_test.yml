@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: registry.gitlab.com/kitsudaiki/kitsunemimi-ci-docker-images/normal-tests:1.2.0
-    name: memory-leak-test-job
+    name: functional-tests-job
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v3
