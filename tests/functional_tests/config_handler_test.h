@@ -13,9 +13,6 @@
 
 namespace Kitsunemimi
 {
-namespace Config
-{
-
 class ConfigHandler_Test
         : public Kitsunemimi::CompareTestHelper
 {
@@ -30,7 +27,6 @@ private:
     std::string m_testFilePath = "/tmp/ConfigHandler_Test.ini";
 };
 
-}
-}
+} // namespace Kitsunemimi
 
 #endif // CONFIG_HANDLER_TEST_H

@@ -1,6 +1,6 @@
 # libKitsunemimiConfig
 
-![Github workfloat status](https://img.shields.io/github/workflow/status/kitsudaiki/libKitsunemimiConfig/build-and-test/develop?label=build%20and%20test&style=flat-square)
+![Github workfloat status](https://img.shields.io/github/actions/workflow/status/kitsudaiki/libKitsunemimiConfig/build_test.yml?branch=develop&style=flat-square&label=build%20and%20test)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/kitsudaiki/libKitsunemimiConfig?label=version&style=flat-square)
 ![GitHub](https://img.shields.io/github/license/kitsudaiki/libKitsunemimiConfig?style=flat-square)
 ![C++Version](https://img.shields.io/badge/c%2B%2B-17-blue?style=flat-square)
@@ -81,7 +81,7 @@ ErrorContainer error;
 
 // init configuration
 // called anywhere at the beginning of the programm
-Kitsunemimi::Config::initConfig(m_testFilePath, error), true);
+Kitsunemimi::initConfig(m_testFilePath, error), true);
 
 // register values
 REGISTER_STRING_CONFIG("DEFAULT", "string_val", error, "");
@@ -89,7 +89,7 @@ REGISTER_INT_CONFIG("DEFAULT", "int_val", error, 42);
 REGISTER_INT_CONFIG("DEFAULT", "another_int_val", error, 42);
 
 // check if config is valid and all registrations were successfull
-bool valid = Kitsunemimi::Config::isConfigValid();
+bool valid = Kitsunemimi::isConfigValid();
 // is true in this example
 if(valid == false) {
 	LOG_ERROR(error);

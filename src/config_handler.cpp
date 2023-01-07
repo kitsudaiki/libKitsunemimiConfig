@@ -14,8 +14,6 @@
 
 namespace Kitsunemimi
 {
-namespace Config
-{
 
 ConfigHandler* ConfigHandler::m_config = nullptr;
 
@@ -357,7 +355,7 @@ ConfigHandler::initConfig(const std::string &configFilePath,
     }
 
     // parse file content
-    m_iniItem = new Ini::IniItem();
+    m_iniItem = new IniItem();
     std::string parseErrorMessage = "";
     bool result = m_iniItem->parse(fileContent, error);
     if(result == false)
@@ -891,5 +889,4 @@ ConfigHandler::registerValue(std::string &groupName,
     return true;
 }
 
-}
-}
+} // namespace Kitsunemimi

@@ -14,8 +14,6 @@
 
 namespace Kitsunemimi
 {
-namespace Config
-{
 
 ConfigHandler_Test::ConfigHandler_Test()
     : Kitsunemimi::CompareTestHelper("ConfigHandler_Test")
@@ -33,7 +31,7 @@ ConfigHandler_Test::runTest()
     Kitsunemimi::writeFile(m_testFilePath, getTestString(), error, true);
 
     // init config
-    TEST_EQUAL(Kitsunemimi::Config::initConfig(m_testFilePath, error), true);
+    TEST_EQUAL(Kitsunemimi::initConfig(m_testFilePath, error), true);
 
     REGISTER_STRING_CONFIG("DEFAULT", "string_val", error, "");
     REGISTER_INT_CONFIG("DEFAULT", "int_val", error, 42);
@@ -71,5 +69,4 @@ ConfigHandler_Test::getTestString()
     return testString;
 }
 
-}
-}
+} // namespace Kitsunemimi

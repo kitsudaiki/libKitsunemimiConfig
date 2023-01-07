@@ -14,8 +14,6 @@
 
 namespace Kitsunemimi
 {
-namespace Config
-{
 
 ConfigHandler_Test::ConfigHandler_Test()
     : Kitsunemimi::CompareTestHelper("ConfigHandler_Test")
@@ -412,5 +410,4 @@ ConfigHandler_Test::getTestString()
     return testString;
 }
 
-}
-}
+} // namespace Kitsunemimi

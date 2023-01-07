@@ -14,26 +14,23 @@
 #include <map>
 #include <libKitsunemimiCommon/logger.h>
 
-#define REGISTER_STRING_CONFIG Kitsunemimi::Config::registerString
-#define REGISTER_INT_CONFIG Kitsunemimi::Config::registerInteger
-#define REGISTER_FLOAT_CONFIG Kitsunemimi::Config::registerFloat
-#define REGISTER_BOOL_CONFIG Kitsunemimi::Config::registerBoolean
-#define REGISTER_STRING_ARRAY_CONFIG Kitsunemimi::Config::registerStringArray
+#define REGISTER_STRING_CONFIG Kitsunemimi::registerString
+#define REGISTER_INT_CONFIG Kitsunemimi::registerInteger
+#define REGISTER_FLOAT_CONFIG Kitsunemimi::registerFloat
+#define REGISTER_BOOL_CONFIG Kitsunemimi::registerBoolean
+#define REGISTER_STRING_ARRAY_CONFIG Kitsunemimi::registerStringArray
 
-#define GET_STRING_CONFIG Kitsunemimi::Config::getString
-#define GET_INT_CONFIG Kitsunemimi::Config::getInteger
-#define GET_FLOAT_CONFIG Kitsunemimi::Config::getFloat
-#define GET_BOOL_CONFIG Kitsunemimi::Config::getBoolean
-#define GET_STRING_ARRAY_CONFIG Kitsunemimi::Config::getStringArray
+#define GET_STRING_CONFIG Kitsunemimi::getString
+#define GET_INT_CONFIG Kitsunemimi::getInteger
+#define GET_FLOAT_CONFIG Kitsunemimi::getFloat
+#define GET_BOOL_CONFIG Kitsunemimi::getBoolean
+#define GET_STRING_ARRAY_CONFIG Kitsunemimi::getStringArray
 
 namespace Kitsunemimi
 {
 class DataItem;
-namespace Ini {
 class IniItem;
-}
-namespace Config
-{
+
 class ConfigHandler_Test;
 
 bool initConfig(const std::string &configFilePath,
@@ -141,7 +138,7 @@ public:
                                                   const std::string &itemName,
                                                   bool &success);
 
-    static Kitsunemimi::Config::ConfigHandler* m_config;
+    static Kitsunemimi::ConfigHandler* m_config;
 
 private:
     friend ConfigHandler_Test;
@@ -174,12 +171,12 @@ private:
                        ErrorContainer &error);
 
     std::string m_configFilePath = "";
-    Ini::IniItem* m_iniItem = nullptr;
+    IniItem* m_iniItem = nullptr;
     bool m_configValid = true;
     std::map<std::string, std::map<std::string, ConfigType>> m_registeredConfigs;
 };
 
-}
-}
+} // namespace Kitsunemimi
+
 
 #endif // CONFIG_HANDLER_H
