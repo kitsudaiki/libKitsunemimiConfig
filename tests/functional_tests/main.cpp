@@ -11,6 +11,6 @@
 
 int main()
 {
-    Kitsunemimi::Config::ConfigHandler_Test configHandler_Test;
+    Kitsunemimi::ConfigHandler_Test configHandler_Test;
     return 0;
 }
