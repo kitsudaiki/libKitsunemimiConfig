@@ -1,5 +1,7 @@
 # libKitsunemimiConfig
 
+## IMPORTANT: This repository is no longer maintained, because in context of issue https://github.com/kitsudaiki/Hanami-AI/issues/31 the content was moved into the main-repository (https://github.com/kitsudaiki/Hanami-AI).
+
 ![Github workfloat status](https://img.shields.io/github/actions/workflow/status/kitsudaiki/libKitsunemimiConfig/build_test.yml?branch=develop&style=flat-square&label=build%20and%20test)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/kitsudaiki/libKitsunemimiConfig?label=version&style=flat-square)
 ![GitHub](https://img.shields.io/github/license/kitsudaiki/libKitsunemimiConfig?style=flat-square)
